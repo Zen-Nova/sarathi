@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 // Redirect homepage or entry points missing parameters gracefully
 Route::get('/', function () {
-    return view('citizen'); 
+    return view('home'); 
 });
 
 // Localization Switcher Route with secure fallback
