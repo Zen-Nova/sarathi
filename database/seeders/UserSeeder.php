@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
                 'name' => 'Admin User',
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
+                // You can add additional fields here if needed
             ]
         );
 
