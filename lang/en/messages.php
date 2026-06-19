@@ -24,5 +24,11 @@ return [
     'submit' => 'Submit',
     'thank_you' => 'Thank You!',
     'thanks_msg' => 'Your response has been securely tracked to help improve public service efficiency.',
-    'back_home' => 'Back to Home'
+    'back_home' => 'Back to Home', // Added missing comma here!
+    'nav_services' => 'Services',
+    'nav_track' => 'Track Visit',
+    'nav_feedback' => 'Feedback',
+    'nav_complaints' => 'Complaints',
+    'nav_stats' => 'Statistics',
+    'login' => 'Login',
 ];

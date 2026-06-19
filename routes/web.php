@@ -5,15 +5,16 @@ use Illuminate\Support\Facades\Route;
 
 // Redirect homepage or entry points missing parameters gracefully
 Route::get('/', function () {
-    return view('welcome'); // Or direct to a universal instruction deck
+    return view('citizen'); 
 });
 
-// Localization Switcher Route
+// Localization Switcher Route with secure fallback
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'np'])) {
         session(['locale' => $locale]);
     }
-    return redirect()->back();
+    // Fallback to home if there is no HTTP_REFERER header
+    return redirect()->back(fallback: '/');
 })->name('lang.switch');
 
 // Main Citizen QR Code Gateway
