@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             ServiceStepSeeder::class,
             VisitSeeder::class,
-            userSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
