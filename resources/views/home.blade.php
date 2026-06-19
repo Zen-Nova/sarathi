@@ -17,7 +17,7 @@
 @section('title', $ne ? 'नागरिक सारथी' : 'Nagarik Sarthi')
 
 @section('content')
-<div class="max-w-6xl mx-auto px-4 py-8 sm:py-14 selection:bg-blue-600 selection:text-white">
+<div class="max-w-6xl mx-auto px-4 py-4 sm:py-6 selection:bg-blue-600 selection:text-white">
     
     <!-- Main Core Header Section -->
     <header class="text-center mb-14">
@@ -195,7 +195,7 @@
 
         </div>
         
-        <p class="mt-10 text-center text-[11px] text-slate-400 font-semibold">
+        <p class="mt-4 text-center text-[11px] text-slate-400 font-semibold">
             🔒 {{ $ne ? 'कुनै लगइन आवश्यक छैन • नागरिक सहजताका लागि सुरक्षित सेवा' : 'No login required • Secure routing engineered for public utility' }}
         </p>
     </footer>
