@@ -12,6 +12,8 @@ Route::get('/', function () {
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'np'])) {
         session(['locale' => $locale]);
+        // Force session to save
+        session()->save();
     }
     // Fallback to home if there is no HTTP_REFERER header
     return redirect()->back(fallback: '/');

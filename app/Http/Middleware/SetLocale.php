@@ -9,14 +9,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SetLocale
 {
-    public function handle(Request $request, Closure $next): Response
-    {
-        if (session()->has('locale')) {
-            App::setLocale(session()->get('locale'));
-        } else {
-            App::setLocale('np'); // Defaulting to Nepali for high civic accessibility
-        }
+   public function handle(Request $request, Closure $next): Response
+{
+    // Debug: Check if session is working
+    // dd(session()->all()); 
 
-        return $next($request);
+    if (session()->has('locale')) {
+        App::setLocale(session()->get('locale'));
+    } else {
+        App::setLocale('np');
     }
+
+    return $next($request);
+}
 }
