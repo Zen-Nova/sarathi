@@ -2,125 +2,105 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
-use App\Models\Service;
 use App\Models\Visit;
+use App\Models\Service;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support5\Str;
 
 class CitizenWorkflowController extends Controller
 {
     /**
-     * Entry Point: Triggered by scanning QR code matching `/scan?office=slug`
+     * Handles the initial QR code entry gate scan.
+     * Generates a new tracking token if not present, logs entry, and redirects.
      */
     public function handleScan(Request $request)
     {
-        $slug = $request->query('office');
-        $department = Department::where('slug', $slug)->where('is_active', true)->firstOrFail();
+        $token = $request->query('token');
 
-        // Check if citizen already has an active ongoing tracking session in their cookie/session
-        $existingToken = $request->cookie('active_visit_token');
-
-        if ($existingToken) {
-            $activeVisit = Visit::where('tracking_token', $existingToken)
-                                ->whereNull('exited_at')
-                                ->first();
-
-            if ($activeVisit && $activeVisit->department_id === $department->id) {
-                // If they scanned the same QR code again while active inside, send them straight to Checkout!
-                return redirect()->route('workflow.checkout', ['token' => $existingToken]);
+        // If the token already exists, check if they completed their steps or are checking out
+        if ($token && $visit = Visit::where('tracking_token', $token)->first()) {
+            if ($visit->is_completed || $visit->failure_reason) {
+                return redirect()->route('workflow.thanks', ['token' => $token]);
             }
+            return redirect()->route('workflow.checkout', ['token' => $token]);
         }
 
-        // Fresh Entry Journey: Generate tracking token & create fresh initial visit record
-        $token = Str::random(40);
-        
-        Visit::create([
-            'tracking_token' => $token,
-            'department_id' => $department->id,
-            'entered_at' => now(),
-        ]);
+        // New citizen arrival workflow initiation
+        $newToken = 'TRK-' . strtoupper(Str::random(12));
 
-        // Put the token on a long-lived cookie session valid for 1 day
-        return redirect()->route('workflow.select-service', ['token' => $token])
-                         ->withCookie(cookie('active_visit_token', $token, 1440));
+        return redirect()->route('workflow.select-service', ['token' => $newToken]);
     }
 
-    /**
-     * Display Service options available for selection
-     */
     public function showServiceSelection($token)
     {
-        $visit = Visit::where('tracking_token', $token)->firstOrFail();
-        $services = Service::where('department_id', $visit->department_id)->where('is_active', true)->get();
-
-        return view('citizen.select-service', compact('visit', 'services', 'token'));
+        $services = Service::where('is_active', true)->with('department')->get();
+        return view('citizen.select-service', compact('token', 'services'));
     }
 
-    /**
-     * Assign service and forward to workflow roadmap
-     */
     public function startService(Request $request, $token)
     {
-        $request->validate(['service_id' => 'required|exists:services,id']);
-        
-        $visit = Visit::where('tracking_token', $token)->firstOrFail();
-        $visit->update(['service_id' => $request->service_id]);
+        $request->validate([
+            'service_id' => 'required|exists:services,id',
+        ]);
+
+        $service = Service::findOrFail($request->service_id);
+
+        // Store active tracker sequence in database visits registry
+        Visit::create([
+            'tracking_token' => $token,
+            'department_id'  => $service->department_id,
+            'service_id'     => $service->id,
+            'entered_at'     => now(),
+            'is_completed'   => false,
+        ]);
 
         return redirect()->route('workflow.roadmap', ['token' => $token]);
     }
 
-    /**
-     * Render the step-by-step roadmap to the citizen
-     */
     public function showRoadmap($token)
     {
-        $visit = Visit::where('tracking_token', $token)->with('service.steps', 'department')->firstOrFail();
-        
-        return view('citizen.roadmap', compact('visit'));
+        $visit = Visit::where('tracking_token', $token)->with('service.steps')->firstOrFail();
+        $service = $visit->service;
+
+        return view('citizen.roadmap', compact('token', 'visit', 'service'));
     }
 
-    /**
-     * Checkout point (Phase 2 landing page)
-     */
     public function showCheckout($token)
     {
-        $visit = Visit::where('tracking_token', $token)->with('department', 'service')->firstOrFail();
-        return view('citizen.checkout', compact('visit', 'token'));
+        $visit = Visit::where('tracking_token', $token)->with('service')->firstOrFail();
+        return view('citizen.checkout', compact('token', 'visit'));
     }
 
-    /**
-     * Process user feedback/failure modes on check out
-     */
     public function processFeedback(Request $request, $token)
     {
         $visit = Visit::where('tracking_token', $token)->firstOrFail();
 
         $request->validate([
-            'is_completed' => 'required|boolean',
-            'rating' => 'required_if:is_completed,1|nullable|integer|min:1|max:5',
-            'failure_reason' => 'required_if:is_completed,0|nullable|string',
-            'citizen_comments' => 'nullable|string|max:1000'
+            'is_completed'     => 'required|boolean',
+            'rating'           => 'nullable|integer|min:1|max:5',
+            'failure_reason'   => 'nullable|string',
+            'citizen_comments' => 'nullable|string',
+            'citizen_name'     => 'nullable|string|max:255',
+            'citizen_phone'    => 'nullable|string|max:20',
         ]);
+
+        $isCompleted = (bool) $request->is_completed;
 
         $visit->update([
-            'exited_at' => now(),
-            'is_completed' => $request->is_completed,
-            'rating' => $request->is_completed ? $request->rating : null,
-            'failure_reason' => !$request->is_completed ? $request->failure_reason : null,
+            'is_completed'     => $isCompleted,
+            'rating'           => $isCompleted ? $request->rating : 1, // Auto lock low rating for incomplete work
+            'failure_reason'   => $isCompleted ? null : $request->failure_reason,
             'citizen_comments' => $request->citizen_comments,
+            'citizen_name'     => $request->has('is_anonymous') ? null : $request->citizen_name,
+            'citizen_phone'    => $request->has('is_anonymous') ? null : $request->citizen_phone,
+            'exited_at'        => now(),
         ]);
 
-        // Forget the tracking cookie token upon completion
-        return redirect()->route('workflow.thanks', ['token' => $token])
-                         ->withoutCookie('active_visit_token');
+        return redirect()->route('workflow.thanks', ['token' => $token]);
     }
 
-    /**
-     * Thank You Screen
-     */
     public function thankYou($token)
     {
-        return view('citizen.thanks');
+        return view('citizen.thank-you', compact('token'));
     }
 }

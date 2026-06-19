@@ -9,17 +9,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SetLocale
 {
-   public function handle(Request $request, Closure $next): Response
-{
-    // Debug: Check if session is working
-    // dd(session()->all()); 
+    /**
+     * Handle an incoming request.
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+        if (session()->has('locale')) {
+            App::setLocale(session('get', 'locale'));
+        } else {
+            App::setLocale('np'); // Default fallback to Nepali
+        }
 
-    if (session()->has('locale')) {
-        App::setLocale(session()->get('locale'));
-    } else {
-        App::setLocale('np');
+        return $next($request);
     }
-
-    return $next($request);
-}
 }

@@ -1,213 +1,107 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', __('messages.title'))</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
+@extends('layouts.citizen')
 
-    <!-- Global Responsive Header Base Structure from brave_screenshot_chatgpt.com.jpg -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                
-                <!-- Left Side: Brand Identity & Government Emblem Emblem Placeholder -->
-                <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-sm shrink-0">
-                        🇳🇵
-                    </div>
-                    <a href="/" class="flex flex-col">
-                        <span class="text-lg font-black text-blue-900 tracking-tight leading-tight">Citizen Service</span>
-                        <span class="text-md font-extrabold text-red-600 tracking-tight leading-none">Tracker Nepal</span>
-                        <span class="text-[10px] text-slate-500 font-medium mt-0.5">Service Simple, Government Transparent</span>
-                    </a>
-                </div>
+@section('content')
+<div class="space-y-8 max-w-5xl mx-auto px-4 py-6">
+    
+    <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3 shadow-sm">
+        <span class="text-xl mt-0.5">📢</span>
+        <div>
+            <h4 class="font-bold text-amber-950 text-sm">सूचना / Notice Board:</h4>
+            <p class="text-xs text-amber-800 mt-0.5 leading-relaxed">
+                राहदानी वितरण शाखा बिहान ८:०० बजे देखि बेलुका ६:०० बजे सम्म खुल्ला रहनेछ। (The Passport Distribution Branch is now open from 8:00 AM to 6:00 PM).
+            </p>
+        </div>
+    </div>
 
-                <!-- Center: Primary Platform Navigation Links -->
-                <nav class="hidden md:flex space-x-6 lg:space-x-8 items-center">
-                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900">
-                        {{ __('messages.nav_services') }}
-                    </a>
-                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900">
-                        {{ __('messages.nav_track') }}
-                    </a>
-                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900">
-                        {{ __('messages.nav_feedback') }}
-                    </a>
-                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900">
-                        {{ __('messages.nav_complaints') }}
-                    </a>
-                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900">
-                        {{ __('messages.nav_stats') }}
-                    </a>
-                </nav>
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-10 text-center relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-40 h-40 bg-blue-500/5 rounded-full blur-2xl"></div>
+        <div class="absolute bottom-0 left-0 w-40 h-40 bg-rose-500/5 rounded-full blur-2xl"></div>
 
-                <!-- Right Side: Session Actions, Language, and Authentication Button -->
-                <div class="flex items-center space-x-4">
-                    <!-- Dynamic Ongoing Tracking Exit Action Button -->
-                    @if(request()->cookie('active_visit_token') && !Route::is('workflow.thanks') && !Route::is('workflow.checkout'))
-                        <a href="{{ route('workflow.checkout', ['token' => request()->cookie('active_visit_token')]) }}" 
-                           class="hidden sm:inline-flex text-xs font-bold bg-rose-50 text-rose-700 px-3 py-1.5 rounded-lg border border-rose-200 hover:bg-rose-100 transition-colors">
-                            🔔 Exit Office
-                        </a>
-                    @endif
+        <div class="max-w-xl mx-auto flex flex-col items-center">
+            <div class="bg-gradient-to-tr from-rose-50 to-blue-50 p-5 rounded-full mb-5 border border-slate-100 flex items-center justify-center shadow-inner">
+                <span class="text-4xl">🏛️</span>
+            </div>
 
-                    <!-- Prominent Login Action Button from Mockup -->
-                    <a href="/admin" class="inline-flex items-center justify-center px-4 py-2.5 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-900 hover:bg-blue-800 shadow-sm transition-colors">
-                        {{ __('messages.login') }}
-                    </a>
-                </div>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                राहदानी विभाग नागरिक मार्गदर्शक पोर्टल
+            </h2>
+            <p class="text-xs sm:text-sm font-medium text-slate-400 mt-1 tracking-wide uppercase">
+                Department of Passports • Citizen Navigation Dashboard
+            </p>
+            <p class="text-sm text-slate-500 mt-3 leading-relaxed max-w-md">
+                @lang('messages.chooseServiceDesc')
+            </p>
 
+            <div class="mt-8 p-1 bg-slate-100/80 rounded-2xl border border-slate-200/60 w-full max-w-sm shadow-inner">
+                <a href="{{ route('portal.select-service') }}" 
+                   class="py-3.5 px-6 bg-slate-950 hover:bg-slate-900 text-white font-extrabold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-3 transform hover:scale-[1.01] hover:shadow-lg">
+                    <span>➡️ नयाँ सेवा सुरु गर्नुहोस् / Start Service Flow</span>
+                </a>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- Contextual Information Banner Bar -->
-    @if(request()->cookie('active_visit_token') && !Route::is('workflow.thanks') && !Route::is('citizen.welcome'))
-        <div class="bg-blue-900 text-white py-2.5 shadow-inner">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs font-medium">
-                <div class="flex items-center space-x-2">
-                    <span class="animate-pulse h-2 w-2 rounded-full bg-emerald-400"></span>
-                    <span>⏱️ Active Office Tracking Session Ongoing</span>
-                </div>
-                @if(!Route::is('workflow.roadmap') && !Route::is('workflow.select-service'))
-                    <a href="{{ route('workflow.roadmap', ['token' => request()->cookie('active_visit_token')]) }}" class="underline font-bold text-amber-300 hover:text-amber-200 transition-colors">
-                        View Roadmap Dashboard &rarr;
-                    </a>
-                @endif
-            </div>
-        </div>
-    @endif
-
-    <!-- Main Dynamic Content Region — Broad max-width configuration to adapt well to dashboard layouts -->
-    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col justify-between">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <h3 class="text-sm font-bold text-slate-900 tracking-tight mb-6 flex items-center gap-2">
+            <span>📊</span> तपाईंको यात्राको चरण / Live Guide Progress Breakdown
+        </h3>
         
-        <!-- Hero section with 2-column layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center my-auto">
-            <!-- Left Column: Copywriting and Buttons -->
-            <div class="lg:col-span-5 space-y-6 text-left">
-                <div class="space-y-3">
-                    <h1 class="text-4xl md:text-[44px] font-black text-slate-900 tracking-tight leading-[1.1] font-sans">
-                        Public Service.<br>
-                        Transparent. Accountable.<br>
-                        For Every Nepali.
-                    </h1>
-                </div>
-
-                <div class="space-y-3 text-slate-600 text-sm md:text-base leading-relaxed">
-                    <p class="font-medium">
-                        Track your visits, get real-time updates, submit feedback and help us build a better, more accountable government.
-                    </p>
-                </div>
-
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <!-- Start Service -->
-                    <a href="/scan?office=district-administration-office-kathmandu" class="inline-flex items-center justify-center bg-blue-900 hover:bg-blue-800 text-white px-6 py-3 rounded-lg font-bold text-sm transition-colors shadow-sm min-w-[180px] text-center">
-                        Start Service
-                    </a>
-                    
-                    <!-- Track My Visit -->
-                    <a href="#" class="inline-flex items-center justify-center border border-blue-900 hover:bg-blue-50 text-blue-900 bg-white px-6 py-3 rounded-lg font-bold text-sm transition-colors min-w-[180px] text-center">
-                        Track My Visit
-                    </a>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+            
+            <div class="relative flex flex-col items-center text-center p-3 rounded-xl bg-slate-50/50 border border-slate-100">
+                <div class="w-8 h-8 rounded-full bg-slate-200 font-bold text-xs flex items-center justify-center text-slate-700 mb-2">1</div>
+                <span class="font-bold text-xs text-slate-800">सेवा छनौट</span>
+                <span class="text-[11px] text-slate-400 mt-0.5">Select Service</span>
             </div>
 
-            <!-- Right Column: Vector Illustration -->
-            <div class="lg:col-span-7 flex justify-center">
-                <div class="relative w-full max-w-2xl bg-white p-1 rounded-2xl shadow-xs border border-slate-200/40">
-                    <img src="{{ asset('images/citizen_service_hub.png') }}" alt="Citizen Service Hub Illustration" class="w-full h-auto rounded-xl object-cover">
-                </div>
+            <div class="relative flex flex-col items-center text-center p-3 rounded-xl bg-slate-50/50 border border-slate-100">
+                <div class="w-8 h-8 rounded-full bg-slate-200 font-bold text-xs flex items-center justify-center text-slate-700 mb-2">2</div>
+                <span class="font-bold text-xs text-slate-800">लाइभ मार्गदर्शक</span>
+                <span class="text-[11px] text-slate-400 mt-0.5">Active Station Guide</span>
             </div>
+
+            <div class="relative flex flex-col items-center text-center p-3 rounded-xl bg-slate-50/50 border border-slate-100">
+                <div class="w-8 h-8 rounded-full bg-slate-200 font-bold text-xs flex items-center justify-center text-slate-700 mb-2">3</div>
+                <span class="font-bold text-xs text-slate-800">काउन्टर भुक्तानी</span>
+                <span class="text-[11px] text-slate-400 mt-0.5">Checkout Fee</span>
+            </div>
+
+            <div class="relative flex flex-col items-center text-center p-3 rounded-xl bg-slate-50/50 border border-slate-100">
+                <div class="w-8 h-8 rounded-full bg-slate-200 font-bold text-xs flex items-center justify-center text-slate-700 mb-2">4</div>
+                <span class="font-bold text-xs text-slate-800">प्रतिक्रिया फारम</span>
+                <span class="text-[11px] text-slate-400 mt-0.5">Feedback & Exit</span>
+            </div>
+            
         </div>
+    </div>
 
-        <!-- Real-time Stats Grid at the bottom -->
-        <div class="border-t border-slate-200/80 pt-8 mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 text-center">
-            <!-- Stat 1 -->
-            <div class="flex items-center justify-start space-x-3 text-left">
-                <div class="w-10 h-10 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                    👥
-                </div>
-                <div>
-                    <div class="text-lg font-black text-slate-800 leading-tight">2.8M+</div>
-                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">Services Provided</div>
-                </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        
+        <a href="{{ route('portal.roadmap') }}" class="group bg-white p-5 rounded-2xl border border-slate-200 hover:border-blue-500 transition-all hover:shadow-sm text-left">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 group-hover:bg-blue-100 text-blue-600 flex items-center justify-center text-lg transition-colors">
+                📄
             </div>
+            <h4 class="font-bold text-slate-900 text-sm mt-4">आवश्यक कागजातहरू</h4>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">Required identity documentation verification guidelines check-list.</p>
+        </a>
 
-            <!-- Stat 2 -->
-            <div class="flex items-center justify-start space-x-3 text-left">
-                <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                    🪪
-                </div>
-                <div>
-                    <div class="text-lg font-black text-slate-800 leading-tight">1.6M+</div>
-                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">Citizen Registrations</div>
-                </div>
+        <a href="#" class="group bg-white p-5 rounded-2xl border border-slate-200 hover:border-indigo-500 transition-all hover:shadow-sm text-left">
+            <div class="w-10 h-10 rounded-xl bg-indigo-50 group-hover:bg-indigo-100 text-indigo-600 flex items-center justify-center text-lg transition-colors">
+                🗺️
             </div>
+            <h4 class="font-bold text-slate-900 text-sm mt-4">विभागको नक्सा</h4>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">Explore full building maps highlighting counter groupings layout.</p>
+        </a>
 
-            <!-- Stat 3 -->
-            <div class="flex items-center justify-start space-x-3 text-left">
-                <div class="w-10 h-10 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                    ⏱️
-                </div>
-                <div>
-                    <div class="text-lg font-black text-slate-800 leading-tight">98.2%</div>
-                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">On-time Service</div>
-                </div>
+        <a href="#" class="group bg-white p-5 rounded-2xl border border-slate-200 hover:border-rose-500 transition-all hover:shadow-sm text-left">
+            <div class="w-10 h-10 rounded-xl bg-rose-50 group-hover:bg-rose-100 text-rose-600 flex items-center justify-center text-lg transition-colors">
+                🙋‍♂️
             </div>
+            <h4 class="font-bold text-slate-900 text-sm mt-4">मद्दत डेस्क सहायता</h4>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">Get swift contextual answers regarding pending passport hold codes.</p>
+        </a>
 
-            <!-- Stat 4 -->
-            <div class="flex items-center justify-start space-x-3 text-left">
-                <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                    ⬇️
-                </div>
-                <div>
-                    <div class="text-lg font-black text-slate-800 leading-tight">4.7/5</div>
-                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">Satisfaction Score</div>
-                </div>
-            </div>
+    </div>
 
-            <!-- Stat 5 -->
-            <div class="flex items-center justify-start space-x-3 text-left">
-                <div class="w-10 h-10 bg-blue-50 text-blue-900 rounded-xl flex items-center justify-center text-xl shrink-0">
-                    🏫
-                </div>
-                <div>
-                    <div class="text-lg font-black text-slate-800 leading-tight">7,532</div>
-                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">Offices Covered</div>
-                </div>
-            </div>
-
-            <!-- Stat 6 -->
-            <div class="flex items-center justify-start space-x-3 text-left">
-                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                    📍
-                </div>
-                <div>
-                    <div class="text-lg font-black text-slate-800 leading-tight">77</div>
-                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">Districts Covered</div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Unified Public Sector Footer -->
-    <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
-            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
-                <a href="/" class="hover:text-blue-900 transition-colors">Home</a>
-                <a href="#" class="hover:text-blue-900 transition-colors">Privacy Policy</a>
-                <a href="#" class="hover:text-blue-900 transition-colors">Terms of Service</a>
-                <a href="/admin" class="hover:text-blue-900 transition-colors">Admin Station</a>
-            </div>
-            <div class="text-center sm:text-right text-slate-400 text-[11px]">
-                &copy; {{ date('Y') }} Digital Governance Initiative (Sarathi Platform). Built for transparency.
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
+</div>
+@endsection
