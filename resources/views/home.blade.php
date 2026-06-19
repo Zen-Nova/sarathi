@@ -1,107 +1,66 @@
 @extends('layouts.citizen')
 
+@php
+    $locale = session('locale', 'ne');
+    $ne = $locale === 'ne';
+@endphp
+
+@section('title', $ne ? 'नागरिक सारथी' : 'Nagarik Sarthi')
+
 @section('content')
-<div class="space-y-8 max-w-5xl mx-auto px-4 py-6">
-    
-    <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3 shadow-sm">
-        <span class="text-xl mt-0.5">📢</span>
-        <div>
-            <h4 class="font-bold text-amber-950 text-sm">सूचना / Notice Board:</h4>
-            <p class="text-xs text-amber-800 mt-0.5 leading-relaxed">
-                राहदानी वितरण शाखा बिहान ८:०० बजे देखि बेलुका ६:०० बजे सम्म खुल्ला रहनेछ। (The Passport Distribution Branch is now open from 8:00 AM to 6:00 PM).
-            </p>
-        </div>
-    </div>
+<div class="max-w-xl mx-auto">
+    <section class="bg-white rounded-3xl border border-slate-200 shadow-soft p-6 sm:p-10 text-center overflow-hidden relative">
+        <div class="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-blue-500/5 blur-2xl"></div>
+        <div class="absolute -bottom-16 -left-16 w-40 h-40 rounded-full bg-rose-500/5 blur-2xl"></div>
 
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-10 text-center relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-40 h-40 bg-blue-500/5 rounded-full blur-2xl"></div>
-        <div class="absolute bottom-0 left-0 w-40 h-40 bg-rose-500/5 rounded-full blur-2xl"></div>
-
-        <div class="max-w-xl mx-auto flex flex-col items-center">
-            <div class="bg-gradient-to-tr from-rose-50 to-blue-50 p-5 rounded-full mb-5 border border-slate-100 flex items-center justify-center shadow-inner">
-                <span class="text-4xl">🏛️</span>
+        <div class="relative flex flex-col items-center">
+            <div class="w-28 h-28 rounded-full bg-gradient-to-tr from-rose-50 to-blue-50 border border-slate-100 flex items-center justify-center relative mb-7">
+                <div class="text-6xl leading-none text-slate-900">⌗</div>
+                <div class="absolute inset-0 rounded-full border-4 border-dashed border-rose-500 animate-spin" style="animation-duration: 14s"></div>
             </div>
 
-            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                राहदानी विभाग नागरिक मार्गदर्शक पोर्टल
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-950">
+                {{ $ne ? 'राहदानी विभागमा यहाँलाई स्वागत छ!' : 'Welcome to Passport Department!' }}
             </h2>
-            <p class="text-xs sm:text-sm font-medium text-slate-400 mt-1 tracking-wide uppercase">
-                Department of Passports • Citizen Navigation Dashboard
-            </p>
-            <p class="text-sm text-slate-500 mt-3 leading-relaxed max-w-md">
-                @lang('messages.chooseServiceDesc')
+            <p class="mt-3 text-sm leading-7 text-slate-500">
+                {{ $ne ? 'राहदानी सेवाका लागि सजिलो, पारदर्शी र चरणबद्ध मार्गदर्शन। आफ्नो सेवा सुरु गर्न प्रवेश विन्दुको QR स्क्यान गर्नुहोस्।' : 'Simple, transparent and step-by-step guidance for passport services. Scan the entry QR to start your citizen workflow.' }}
             </p>
 
-            <div class="mt-8 p-1 bg-slate-100/80 rounded-2xl border border-slate-200/60 w-full max-w-sm shadow-inner">
-                <a href="{{ route('portal.select-service') }}" 
-                   class="py-3.5 px-6 bg-slate-950 hover:bg-slate-900 text-white font-extrabold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-3 transform hover:scale-[1.01] hover:shadow-lg">
-                    <span>➡️ नयाँ सेवा सुरु गर्नुहोस् / Start Service Flow</span>
+            <div class="mt-8 w-full rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4">
+                <p class="text-xs font-black uppercase tracking-widest text-slate-500 mb-3">
+                    {{ $ne ? 'सुरु गर्न प्रवेश क्यूआर स्क्यान गर्नुहोस्' : 'Scan Entry QR to Check In' }}
+                </p>
+                <a href="{{ route('workflow.scan') }}" class="tap w-full rounded-2xl bg-slate-950 hover:bg-slate-800 text-white font-black text-sm flex items-center justify-center gap-2 px-6 py-4 shadow-lg">
+                    <span class="text-emerald-400">⌗</span>
+                    <span>{{ $ne ? 'प्रवेश विन्दुको क्यूआर स्क्यान गर्नुहोस्' : 'Scan Entry QR at Passport Department' }}</span>
                 </a>
+                <p class="mt-3 text-[11px] text-slate-400">
+                    {{ $ne ? 'वास्तविक कार्यालयमा मोबाइल क्यामेराले QR स्क्यान गर्दा यही पेज खुल्छ।' : 'In real offices, the mobile camera QR scan opens this portal automatically.' }}
+                </p>
+            </div>
+
+            <div class="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-xs font-bold text-emerald-700">
+                ✅ {{ $ne ? 'लगइन आवश्यक छैन · मोबाइलमै सजिलो' : 'No login required · Mobile friendly' }}
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-        <h3 class="text-sm font-bold text-slate-900 tracking-tight mb-6 flex items-center gap-2">
-            <span>📊</span> तपाईंको यात्राको चरण / Live Guide Progress Breakdown
-        </h3>
-        
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
-            
-            <div class="relative flex flex-col items-center text-center p-3 rounded-xl bg-slate-50/50 border border-slate-100">
-                <div class="w-8 h-8 rounded-full bg-slate-200 font-bold text-xs flex items-center justify-center text-slate-700 mb-2">1</div>
-                <span class="font-bold text-xs text-slate-800">सेवा छनौट</span>
-                <span class="text-[11px] text-slate-400 mt-0.5">Select Service</span>
-            </div>
-
-            <div class="relative flex flex-col items-center text-center p-3 rounded-xl bg-slate-50/50 border border-slate-100">
-                <div class="w-8 h-8 rounded-full bg-slate-200 font-bold text-xs flex items-center justify-center text-slate-700 mb-2">2</div>
-                <span class="font-bold text-xs text-slate-800">लाइभ मार्गदर्शक</span>
-                <span class="text-[11px] text-slate-400 mt-0.5">Active Station Guide</span>
-            </div>
-
-            <div class="relative flex flex-col items-center text-center p-3 rounded-xl bg-slate-50/50 border border-slate-100">
-                <div class="w-8 h-8 rounded-full bg-slate-200 font-bold text-xs flex items-center justify-center text-slate-700 mb-2">3</div>
-                <span class="font-bold text-xs text-slate-800">काउन्टर भुक्तानी</span>
-                <span class="text-[11px] text-slate-400 mt-0.5">Checkout Fee</span>
-            </div>
-
-            <div class="relative flex flex-col items-center text-center p-3 rounded-xl bg-slate-50/50 border border-slate-100">
-                <div class="w-8 h-8 rounded-full bg-slate-200 font-bold text-xs flex items-center justify-center text-slate-700 mb-2">4</div>
-                <span class="font-bold text-xs text-slate-800">प्रतिक्रिया फारम</span>
-                <span class="text-[11px] text-slate-400 mt-0.5">Feedback & Exit</span>
-            </div>
-            
+    <section class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <p class="text-2xl">📍</p>
+            <h3 class="mt-2 text-sm font-black">{{ $ne ? 'काउन्टर मार्गदर्शन' : 'Counter Guide' }}</h3>
+            <p class="mt-1 text-xs text-slate-500">{{ $ne ? 'कुन कोठा/काउन्टर जाने स्पष्ट देखिन्छ।' : 'Shows which room or counter to visit.' }}</p>
         </div>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        
-        <a href="{{ route('portal.roadmap') }}" class="group bg-white p-5 rounded-2xl border border-slate-200 hover:border-blue-500 transition-all hover:shadow-sm text-left">
-            <div class="w-10 h-10 rounded-xl bg-blue-50 group-hover:bg-blue-100 text-blue-600 flex items-center justify-center text-lg transition-colors">
-                📄
-            </div>
-            <h4 class="font-bold text-slate-900 text-sm mt-4">आवश्यक कागजातहरू</h4>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">Required identity documentation verification guidelines check-list.</p>
-        </a>
-
-        <a href="#" class="group bg-white p-5 rounded-2xl border border-slate-200 hover:border-indigo-500 transition-all hover:shadow-sm text-left">
-            <div class="w-10 h-10 rounded-xl bg-indigo-50 group-hover:bg-indigo-100 text-indigo-600 flex items-center justify-center text-lg transition-colors">
-                🗺️
-            </div>
-            <h4 class="font-bold text-slate-900 text-sm mt-4">विभागको नक्सा</h4>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">Explore full building maps highlighting counter groupings layout.</p>
-        </a>
-
-        <a href="#" class="group bg-white p-5 rounded-2xl border border-slate-200 hover:border-rose-500 transition-all hover:shadow-sm text-left">
-            <div class="w-10 h-10 rounded-xl bg-rose-50 group-hover:bg-rose-100 text-rose-600 flex items-center justify-center text-lg transition-colors">
-                🙋‍♂️
-            </div>
-            <h4 class="font-bold text-slate-900 text-sm mt-4">मद्दत डेस्क सहायता</h4>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">Get swift contextual answers regarding pending passport hold codes.</p>
-        </a>
-
-    </div>
-
+        <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <p class="text-2xl">📄</p>
+            <h3 class="mt-2 text-sm font-black">{{ $ne ? 'कागजात सूची' : 'Document List' }}</h3>
+            <p class="mt-1 text-xs text-slate-500">{{ $ne ? 'प्रत्येक चरणका आवश्यक कागजातहरू।' : 'Required documents for every step.' }}</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <p class="text-2xl">🗣️</p>
+            <h3 class="mt-2 text-sm font-black">{{ $ne ? 'प्रतिक्रिया' : 'Feedback' }}</h3>
+            <p class="mt-1 text-xs text-slate-500">{{ $ne ? 'काम भयो/भएन र कारण दर्ता गर्नुहोस्।' : 'Submit whether work was completed or not.' }}</p>
+        </div>
+    </section>
 </div>
 @endsection
