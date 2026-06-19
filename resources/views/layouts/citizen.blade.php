@@ -52,9 +52,9 @@
 <body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
     <div class="min-h-screen flex flex-col">
         <div class="h-1.5 bg-gradient-to-r from-red-600 via-white to-blue-700"></div>
-        <header class="sticky top-0 z-40 bg-slate-50/90 backdrop-blur-md py-3 transition-all duration-300">
+        <header class="sticky top-0 z-40 bg-transparent py-4 transition-all duration-300">
             <div class="max-w-6xl mx-auto px-4">
-                <nav class="bg-white border border-slate-200 rounded-full px-5 py-2 flex items-center justify-between shadow-sm hover:shadow-md transition-all duration-300">
+                <nav class="bg-white/75 backdrop-blur-md border border-white/50 rounded-full px-5 py-2 flex items-center justify-between shadow-md hover:shadow-lg transition-all duration-300">
                     <!-- Left: Emblem of Nepal & Title -->
                     <a href="{{ route('portal.home') }}" class="flex items-center gap-3 min-w-0">
                         <img src="{{ asset('images/emblem.svg') }}" alt="Emblem of Nepal" class="h-9 w-auto hover:scale-105 transition-transform duration-300">
