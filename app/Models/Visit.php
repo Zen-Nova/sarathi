@@ -19,7 +19,9 @@ class Visit extends Model
         'is_completed',
         'rating',
         'failure_reason',
-        'citizen_comments'
+        'citizen_comments',
+        'citizen_name',
+        'citizen_phone',
     ];
 
     // Cast attributes to native Carbon dates automatically

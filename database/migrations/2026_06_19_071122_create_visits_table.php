@@ -25,6 +25,9 @@ return new class extends Migration
             $table->boolean('is_completed')->nullable(); // true = Task Done, false = Failed
             $table->integer('rating')->nullable();       // 1 to 5 star metric if completed
             
+            $table->string('citizen_name')->nullable();
+            $table->string('citizen_phone')->nullable();
+
             // If task failed, store predefined structural categories or complaints
             $table->string('failure_reason')->nullable(); // e.g., 'server_down', 'missing_documents'
             $table->text('citizen_comments')->nullable(); // Optional text narrative field
