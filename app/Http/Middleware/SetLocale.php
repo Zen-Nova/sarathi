@@ -14,10 +14,11 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->has('locale')) {
-            App::setLocale(session('get', 'locale'));
+        $locale = session('locale', 'ne');
+        if ($locale === 'ne') {
+            App::setLocale('np');
         } else {
-            App::setLocale('np'); // Default fallback to Nepali
+            App::setLocale('en');
         }
 
         return $next($request);

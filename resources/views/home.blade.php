@@ -19,34 +19,6 @@
 @section('content')
 <div class="max-w-5xl mx-auto px-4 py-6 sm:py-10 selection:bg-blue-500 selection:text-white">
     
-    <nav class="w-full bg-white border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 mb-10 shadow-sm">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-600 to-blue-700 flex items-center justify-center text-white text-lg font-bold shadow-inner">
-                🇳🇵
-            </div>
-            <div>
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block leading-none">नेपाल सरकार</span>
-                <span class="text-base font-black text-slate-900 tracking-tight">{{ $ne ? 'नागरिक सारथी पोर्टल' : 'Nagarik Sarthi Portal' }}</span>
-            </div>
-        </div>
-        
-        <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-slate-500 hidden sm:inline-block">
-                {{ $ne ? 'भाषा छनौट गर्नुहोस्:' : 'Select Language:' }}
-            </span>
-            <div class="inline-flex rounded-xl bg-slate-100 p-1 border border-slate-200/80">
-                <a href="{{ request()->fullUrlWithQuery(['locale' => 'ne']) }}" 
-                   class="px-4 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1 {{ $ne ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-600 hover:text-slate-900' }}">
-                    नेपाली
-                </a>
-                <a href="{{ request()->fullUrlWithQuery(['locale' => 'en']) }}" 
-                   class="px-4 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1 {{ !$ne ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-600 hover:text-slate-900' }}">
-                    English
-                </a>
-            </div>
-        </div>
-    </nav>
-
     <header class="text-center mb-12">
         <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-slate-900">
             {{ $ne ? 'विभागीय नागरिक सेवा केन्द्र' : 'Departmental Citizen Service Hub' }}

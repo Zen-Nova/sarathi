@@ -51,57 +51,93 @@
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
     <div class="min-h-screen flex flex-col">
-        <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
-            <div class="h-1.5 bg-gradient-to-r from-red-600 via-white to-blue-700"></div>
-            <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-                <a href="{{ route('portal.home') }}" class="flex items-center gap-3 min-w-0">
-                    <div class="relative shrink-0 w-11 h-11 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center text-red-600 font-black text-[10px] leading-none">
-                        GoN<br>नेपाल
-                        <span class="absolute -top-1 -right-1 bg-blue-600 text-white text-[8px] px-1 rounded">NID</span>
-                    </div>
-                    <div class="min-w-0">
-                        <p class="text-[10px] uppercase tracking-widest text-red-600 font-black truncate">🇳🇵 {{ $nav['gov'] }}</p>
-                        <div class="flex items-center gap-2 min-w-0">
-                            <h1 class="text-lg sm:text-2xl font-black tracking-tight truncate">{{ $nav['app'] }}</h1>
-                            <span class="hidden sm:inline-flex text-[10px] px-2 py-0.5 rounded-full border border-blue-100 bg-blue-50 text-blue-700 font-bold">v1.2 BETA</span>
+        <div class="h-1.5 bg-gradient-to-r from-red-600 via-white to-blue-700"></div>
+        <header class="sticky top-0 z-40 bg-slate-50/90 backdrop-blur-md py-3 transition-all duration-300">
+            <div class="max-w-6xl mx-auto px-4">
+                <nav class="bg-white border border-slate-200 rounded-full px-5 py-2 flex items-center justify-between shadow-sm hover:shadow-md transition-all duration-300">
+                    <!-- Left: Emblem of Nepal & Title -->
+                    <a href="{{ route('portal.home') }}" class="flex items-center gap-3 min-w-0">
+                        <img src="{{ asset('images/emblem.svg') }}" alt="Emblem of Nepal" class="h-9 w-auto hover:scale-105 transition-transform duration-300">
+                        <div class="hidden sm:block leading-none text-left">
+                            <span class="text-[9px] font-black text-red-600 uppercase tracking-widest block">{{ $ne ? 'नेपाल सरकार' : 'GOVERNMENT OF NEPAL' }}</span>
+                            <span class="text-xs font-black text-slate-900 tracking-tight block">{{ $ne ? 'नागरिक सारथी' : 'Nagarik Sarthi' }}</span>
                         </div>
-                        <p class="hidden sm:block text-xs text-slate-500">{{ $nav['dept'] }} · <span class="italic text-rose-600 font-semibold">“{{ $nav['slogan'] }}”</span></p>
-                    </div>
-                </a>
+                    </a>
 
-                <nav class="flex items-center gap-2 shrink-0">
-                    <a href="{{ route('lang.switch', $ne ? 'en' : 'ne') }}" class="tap px-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-bold flex items-center gap-1">
-                        🌐 <span class="hidden xs:inline">{{ $nav['language'] }}</span>
-                    </a>
-                    <a href="{{ route('portal.home') }}" class="hidden sm:flex tap px-3 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-xs font-bold items-center gap-1">
-                        👥 {{ $nav['citizen'] }}
-                    </a>
-                    <a href="{{ url('/admin') }}" class="hidden sm:flex tap px-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-bold items-center gap-1 text-slate-600">
-                        📈 {{ $nav['admin'] }}
-                    </a>
+                    <!-- Middle: Main Menu Links -->
+                    <div class="hidden md:flex items-center gap-6 lg:gap-8">
+                        <a href="{{ route('portal.select-service') }}" class="text-sm font-black transition-colors {{ request()->routeIs('portal.select-service') || request()->routeIs('workflow.scan') ? 'text-blue-650' : 'text-slate-600 hover:text-blue-650' }}">
+                            {{ $ne ? 'सेवाहरू' : 'Services' }}
+                        </a>
+                        <a href="{{ route('portal.active-guide') }}" class="text-sm font-black transition-colors {{ request()->routeIs('portal.active-guide') ? 'text-blue-650' : 'text-slate-600 hover:text-blue-650' }}">
+                            {{ $ne ? 'भ्रमण ट्र्याक' : 'Track Visit' }}
+                        </a>
+                        <a href="{{ route('portal.checkout') }}" class="text-sm font-black transition-colors {{ request()->routeIs('portal.checkout') ? 'text-blue-650' : 'text-slate-600 hover:text-blue-650' }}">
+                            {{ $ne ? 'प्रतिक्रिया' : 'Feedback Page' }}
+                        </a>
+                        <a href="#contact" class="text-sm font-black text-slate-600 hover:text-blue-650 transition-colors">
+                            {{ $ne ? 'सम्पर्क' : 'Contact Us' }}
+                        </a>
+                    </div>
+
+                    <!-- Right: Language switch, Register button, Mobile toggle -->
+                    <div class="flex items-center gap-3">
+                        <!-- Language Changer (Desktop) -->
+                        <div class="hidden md:inline-flex rounded-full bg-slate-100 p-0.5 border border-slate-200/80">
+                            <a href="{{ route('lang.switch', 'ne') }}" class="px-3 py-1 rounded-full text-xs font-black transition-all flex items-center gap-1 {{ $ne ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-500 hover:text-slate-800' }}">
+                                नेपाली
+                            </a>
+                            <a href="{{ route('lang.switch', 'en') }}" class="px-3 py-1 rounded-full text-xs font-black transition-all flex items-center gap-1 {{ !$ne ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-500 hover:text-slate-800' }}">
+                                EN
+                            </a>
+                        </div>
+
+                        <!-- Language Changer (Mobile) -->
+                        <a href="{{ route('lang.switch', $ne ? 'en' : 'ne') }}" class="md:hidden px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200/80 text-xs font-black flex items-center gap-1 transition-all">
+                            🌐 {{ $ne ? 'EN' : 'नेपाली' }}
+                        </a>
+
+                        <!-- Register Button -->
+                        <a href="{{ route('portal.select-service') }}" class="hidden sm:inline-block px-4 py-2 rounded-full bg-blue-700 hover:bg-blue-800 hover:scale-[1.02] active:scale-[0.98] text-white font-black text-xs transition-all shadow-sm">
+                            {{ $ne ? 'प्रवेश' : 'Login' }}
+                        </a>
+
+                        <!-- Mobile Hamburger Button -->
+                        <button id="menu-toggle-btn" class="md:hidden p-1 text-slate-600 hover:text-blue-650 focus:outline-none" aria-label="Toggle menu">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                        </button>
+                    </div>
                 </nav>
+
+                <!-- Mobile Menu Dropdown -->
+                <div id="mobile-dropdown-menu" class="hidden md:hidden mt-2 animate-fadeIn">
+                    <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-lg flex flex-col gap-2.5">
+                        <a href="{{ route('portal.select-service') }}" class="text-sm font-black px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 hover:text-blue-650 transition-colors {{ request()->routeIs('portal.select-service') ? 'bg-slate-50 text-blue-650' : '' }}">
+                            {{ $ne ? 'सेवाहरू' : 'Services' }}
+                        </a>
+                        <a href="{{ route('portal.active-guide') }}" class="text-sm font-black px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 hover:text-blue-650 transition-colors {{ request()->routeIs('portal.active-guide') ? 'bg-slate-50 text-blue-650' : '' }}">
+                            {{ $ne ? 'भ्रमण ट्र्याक' : 'Track Visit' }}
+                        </a>
+                        <a href="{{ route('portal.checkout') }}" class="text-sm font-black px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 hover:text-blue-650 transition-colors {{ request()->routeIs('portal.checkout') ? 'bg-slate-50 text-blue-650' : '' }}">
+                            {{ $ne ? 'प्रतिक्रिया' : 'Feedback Page' }}
+                        </a>
+                        <a href="#contact" class="text-sm font-black px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 hover:text-blue-650 transition-colors">
+                            {{ $ne ? 'सम्पर्क' : 'Contact Us' }}
+                        </a>
+                        
+                        <div class="border-t border-slate-100 pt-2.5 sm:hidden">
+                            <a href="{{ route('portal.select-service') }}" class="text-center px-4 py-2.5 rounded-full bg-blue-700 hover:bg-blue-800 text-white font-black text-xs transition-all shadow-sm block w-full">
+                                {{ $ne ? 'दर्ता गर्नुहोस्' : 'Register' }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </header>
 
-        <section class="bg-govnavy text-white border-b border-slate-950">
-            <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div class="flex items-start gap-3">
-                    <div class="text-3xl leading-none text-rose-400">⌗</div>
-                    <div>
-                        <p class="text-xs font-black uppercase tracking-widest text-rose-300">{{ $nav['simTitle'] }}</p>
-                        <p class="text-xs text-slate-300 max-w-xl">{{ $nav['simDesc'] }}</p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2 md:flex md:justify-end">
-                    <a href="{{ route('workflow.scan') }}" class="tap px-3 sm:px-4 rounded-xl bg-blue-600 hover:bg-blue-500 border border-blue-500 text-white text-[11px] sm:text-xs font-black flex items-center justify-center text-center">
-                        {{ $nav['entry'] }}
-                    </a>
-                    <a href="{{ route('portal.checkout') }}" class="tap px-3 sm:px-4 rounded-xl bg-rose-600 hover:bg-rose-500 border border-rose-500 text-white text-[11px] sm:text-xs font-black flex items-center justify-center text-center">
-                        {{ $nav['exit'] }}
-                    </a>
-                </div>
-            </div>
-        </section>
+
 
         @if(session('error'))
             <div class="max-w-xl mx-auto w-full px-4 pt-4">
@@ -113,7 +149,22 @@
             @yield('content')
         </main>
 
-        <footer class="mt-8 bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <footer id="contact" class="mt-8 bg-white border-t border-slate-200 py-8 text-center text-xs text-slate-500">
+            <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6 text-left border-b border-slate-100 pb-6">
+                <div>
+                    <h4 class="font-bold text-slate-900 mb-2">{{ $ne ? 'सम्पर्क ठेगाना' : 'Office Address' }}</h4>
+                    <p class="text-slate-600 leading-relaxed">{{ $ne ? 'राहदानी विभाग, त्रिपुरेश्वर, काठमाडौं, नेपाल' : 'Department of Passports, Tripureshwor, Kathmandu, Nepal' }}</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 mb-2">{{ $ne ? 'सम्पर्क विवरण' : 'Contact Details' }}</h4>
+                    <p class="text-slate-600">📞 {{ $ne ? 'फोन: +९७७-१-४२६३६१९' : 'Phone: +977-1-4263619' }}</p>
+                    <p class="text-slate-600 mt-1">✉️ {{ $ne ? 'इमेल: info@nepalpassport.gov.np' : 'Email: info@nepalpassport.gov.np' }}</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 mb-2">{{ $ne ? 'सहायता केन्द्र' : 'Support Desk' }}</h4>
+                    <p class="text-slate-600 leading-relaxed">{{ $ne ? 'सवारी दर्ता तथा राहदानी सहजीकरण कक्ष, काउन्टर नं. १' : 'Vehicle registration and Passport guidance booth, Counter 1.' }}</p>
+                </div>
+            </div>
             <p class="font-black uppercase tracking-widest text-slate-400">{{ $nav['app'] }} · Digital Nepal Framework Project</p>
             <p class="mt-2"><span class="text-red-600 font-bold">नेपाल सरकार</span> · Practical Citizen Accountability & Real-Time Redirection</p>
             <p class="mt-2 text-[10px] text-slate-400 px-4">This platform simulates QR-based government workflow tracking, service guidance, feedback logs, and citizen accountability dashboards.</p>
@@ -127,6 +178,23 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggleBtn = document.getElementById('menu-toggle-btn');
+            const mobileDropdownMenu = document.getElementById('mobile-dropdown-menu');
+            if (menuToggleBtn && mobileDropdownMenu) {
+                menuToggleBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobileDropdownMenu.classList.toggle('hidden');
+                });
+                document.addEventListener('click', (e) => {
+                    if (!mobileDropdownMenu.contains(e.target) && e.target !== menuToggleBtn) {
+                        mobileDropdownMenu.classList.add('hidden');
+                    }
+                });
+            }
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>
