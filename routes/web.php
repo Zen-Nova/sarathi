@@ -6,19 +6,25 @@ use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
-| Nagarik Sarthi - Citizen Tracking Application Flow
-| Stack: Laravel + Blade + Tailwind + SQLite-ready
+| Nagarik Sarthi - Web Routing & Service Engine
 |--------------------------------------------------------------------------
+|
+| Clean, predictable routing architecture designed for zero-friction citizen 
+| tracking interactions. Powered by pure PHP closures for direct execution.
+|
 */
 
+/**
+ * Repository Dataset for Departmental Services
+ */
 $servicesData = function () {
     return [
         [
             'id' => 'new_passport',
             'name_ne' => 'नयाँ ई-राहदानी दरखास्त दर्ता',
             'name_en' => 'New e-Passport Application',
-            'desc_ne' => 'पहिलो पटक राहदानी बनाउन चरणबद्ध मार्गदर्शन।',
-            'desc_en' => 'Step-by-step guidance for first-time passport application.',
+            'desc_ne' => 'पहिलो पटक राहदानी बनाउन आवश्यक कागजात, दस्तुर र झ्यालगत विवरण सहितको चरणबद्ध मार्गदर्शन।',
+            'desc_en' => 'Step-by-step guidance for first-time biometric passport applications, verification desks, and fees.',
             'est_ne' => '४५–६० मिनेट',
             'est_en' => '45–60 mins',
             'steps' => [
@@ -28,7 +34,7 @@ $servicesData = function () {
                     'location_ne' => 'काउन्टर नं. १ — मुख्य प्रवेश द्वार',
                     'location_en' => 'Counter No. 1 — Main Entrance Gate',
                     'instruction_ne' => 'अनलाइन आवेदन फारमको प्रिन्ट, नागरिकताको प्रमाणपत्र र राष्ट्रिय परिचयपत्र नम्बर रुजु गराउनुहोस्।',
-                    'instruction_en' => 'Verify online application printout, original citizenship certificate and NID number printout.',
+                    'instruction_en' => 'Verify online application printout, original Nepali citizenship certificate and NID number printout.',
                     'requirements_ne' => ['अनलाइन आवेदन फारम प्रिन्ट', 'नागरिकताको सक्कल प्रमाणपत्र', 'राष्ट्रिय परिचयपत्र नम्बर प्रिन्ट'],
                     'requirements_en' => ['Online application form printout', 'Original Nepali citizenship certificate', 'National Identity Number printout'],
                 ],
@@ -68,8 +74,8 @@ $servicesData = function () {
             'id' => 'passport_renewal',
             'name_ne' => 'राहदानी नवीकरण वा नयाँ प्रतिस्थापन',
             'name_en' => 'Passport Renewal / Replacement',
-            'desc_ne' => 'म्याद सकिएको, बिग्रिएको वा हराएको राहदानीको नवीकरण/प्रतिस्थापन।',
-            'desc_en' => 'Renewal or replacement for expired, damaged or lost passport.',
+            'desc_ne' => 'म्याद सकिएको, पाना सकिएको, वा बिग्रिएको राहदानीको नवीकरण/प्रतिस्थापन प्रक्रिया।',
+            'desc_en' => 'Official replacement sequence for expired, fully-stamped, or physically damaged passports.',
             'est_ne' => '३०–४५ मिनेट',
             'est_en' => '30–45 mins',
             'steps' => [
@@ -86,7 +92,7 @@ $servicesData = function () {
                 [
                     'title_ne' => 'बायोमेट्रिक्स अद्यावधिक',
                     'title_en' => 'Biometrics Update',
-                    'location_ne' => 'कोठा नं. १०५ — पहिलो तल्ला',
+                    'location_ne' => 'कोठा नं. 105 — पहिलो तल्ला',
                     'location_en' => 'Room No. 105 — First Floor',
                     'instruction_ne' => 'नयाँ फोटो, औंठाछाप र दस्तखत अद्यावधिक गराउनुहोस्।',
                     'instruction_en' => 'Update new photo, fingerprints and signature.',
@@ -107,10 +113,10 @@ $servicesData = function () {
         ],
         [
             'id' => 'urgent_passport',
-            'name_ne' => 'द्रुत सेवा राहदानी',
+            'name_ne' => 'द्रुत सेवा राहदानी (Fast Track)',
             'name_en' => 'Urgent Passport / Fast Track',
-            'desc_ne' => 'अत्यावश्यक कामका लागि छिटो राहदानी प्रक्रिया।',
-            'desc_en' => 'Fast-track passport processing for urgent needs.',
+            'desc_ne' => 'विशेष वा अत्यावश्यक कामका लागि द्रुत गतिमा राहदानी जारी गर्ने प्राथमिकता प्रक्रिया।',
+            'desc_en' => 'Priority operational fast-track passport processing engineered for time-critical travel needs.',
             'est_ne' => '२०–३५ मिनेट',
             'est_en' => '20–35 mins',
             'steps' => [
@@ -149,6 +155,9 @@ $servicesData = function () {
     ];
 };
 
+/**
+ * Standard Helper Operations
+ */
 $services = function () use ($servicesData) {
     return json_decode(json_encode($servicesData()), false);
 };
@@ -157,6 +166,12 @@ $getServiceById = function ($id) use ($services) {
     return collect($services())->firstWhere('id', $id);
 };
 
+/*
+|--------------------------------------------------------------------------
+| Portal General Web Core Routes
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/', function () {
     return view('home');
 })->name('portal.home');
@@ -164,6 +179,16 @@ Route::get('/', function () {
 Route::get('/select-service', function () use ($services) {
     return view('citizen.select-service', ['services' => $services()]);
 })->name('portal.select-service');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('portal.contact');
+
+/*
+|--------------------------------------------------------------------------
+| Active Citizen Workflow Tracking Pipeline
+|--------------------------------------------------------------------------
+*/
 
 Route::post('/start-tracking', function (Request $request) use ($getServiceById) {
     $request->validate(['service_id' => ['required', 'string']]);
@@ -183,13 +208,11 @@ Route::post('/start-tracking', function (Request $request) use ($getServiceById)
 
 Route::get('/active-guide', function () use ($getServiceById) {
     $serviceId = session('service_id');
-
     if (!$serviceId) {
         return redirect()->route('portal.select-service');
     }
 
     $selectedService = $getServiceById($serviceId);
-
     if (!$selectedService) {
         session()->forget(['tracking_token', 'service_id']);
         return redirect()->route('portal.select-service');
@@ -200,6 +223,12 @@ Route::get('/active-guide', function () use ($getServiceById) {
         'steps' => $selectedService->steps,
     ]);
 })->name('portal.active-guide');
+
+/*
+|--------------------------------------------------------------------------
+| Checkout, Audits, and Evaluation Sequences
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/checkout', function () use ($getServiceById) {
     $selectedService = session('service_id') ? $getServiceById(session('service_id')) : null;
@@ -214,7 +243,6 @@ Route::post('/submit-checkout', function (Request $request) {
         'last_submitted_at' => now()->toDateTimeString(),
     ]);
 
-    // Later: save this payload into SQLite using a Feedback model.
     session()->forget(['tracking_token', 'service_id', 'checked_in_at']);
 
     return redirect()->route('portal.thank-you');
@@ -228,11 +256,16 @@ Route::get('/roadmap', function () {
     return view('citizen.roadmap');
 })->name('portal.roadmap');
 
+/*
+|--------------------------------------------------------------------------
+| Global Context Switches & Utilities
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'ne'])) {
         session(['locale' => $locale]);
     }
-
     return redirect()->back();
 })->name('lang.switch');
 
