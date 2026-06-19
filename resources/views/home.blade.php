@@ -21,31 +21,26 @@
                     <a href="/" class="flex flex-col">
                         <span class="text-lg font-black text-blue-900 tracking-tight leading-tight">Citizen Service</span>
                         <span class="text-md font-extrabold text-red-600 tracking-tight leading-none">Tracker Nepal</span>
-                        <span class="text-[10px] text-slate-500 font-medium mt-0.5">सेवा सरल, सरकार पारदर्शी</span>
+                        <span class="text-[10px] text-slate-500 font-medium mt-0.5">Service Simple, Government Transparent</span>
                     </a>
                 </div>
 
                 <!-- Center: Primary Platform Navigation Links -->
                 <nav class="hidden md:flex space-x-6 lg:space-x-8 items-center">
-                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900 flex flex-col items-center">
-                        <span>{{ __('messages.nav_services') }}</span>
-                        <span class="text-[11px] font-medium text-slate-400 -mt-0.5">सेवाहरू</span>
+                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900">
+                        {{ __('messages.nav_services') }}
                     </a>
-                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900 flex flex-col items-center">
-                        <span>{{ __('messages.nav_track') }}</span>
-                        <span class="text-[11px] font-medium text-slate-400 -mt-0.5">भ्रमण ट्र्याक</span>
+                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900">
+                        {{ __('messages.nav_track') }}
                     </a>
-                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900 flex flex-col items-center">
-                        <span>{{ __('messages.nav_feedback') }}</span>
-                        <span class="text-[11px] font-medium text-slate-400 -mt-0.5">प्रतिक्रिया</span>
+                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900">
+                        {{ __('messages.nav_feedback') }}
                     </a>
-                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900 flex flex-col items-center">
-                        <span>{{ __('messages.nav_complaints') }}</span>
-                        <span class="text-[11px] font-medium text-slate-400 -mt-0.5">गुनासो</span>
+                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900">
+                        {{ __('messages.nav_complaints') }}
                     </a>
-                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900 flex flex-col items-center">
-                        <span>{{ __('messages.nav_stats') }}</span>
-                        <span class="text-[11px] font-medium text-slate-400 -mt-0.5">तथ्याङ्क</span>
+                    <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-900">
+                        {{ __('messages.nav_stats') }}
                     </a>
                 </nav>
 
@@ -59,16 +54,9 @@
                         </a>
                     @endif
 
-                    <!-- Language Switcher Element -->
-                    <a href="{{ route('lang.switch', app()->getLocale() === 'en' ? 'np' : 'en') }}" 
-                       class="inline-flex items-center text-xs font-bold text-slate-700 hover:text-blue-900 px-2 py-1 border border-slate-200 rounded bg-slate-50">
-                        🌐 {{ app()->getLocale() === 'en' ? 'EN' : 'नेपाली' }}
-                    </a>
-
                     <!-- Prominent Login Action Button from Mockup -->
-                    <a href="/admin" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-900 hover:bg-blue-800 shadow-sm transition-colors flex-col">
-                        <span>{{ __('messages.login') }}</span>
-                        <span class="text-[10px] font-normal opacity-80 -mt-0.5">लग इन</span>
+                    <a href="/admin" class="inline-flex items-center justify-center px-4 py-2.5 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-900 hover:bg-blue-800 shadow-sm transition-colors">
+                        {{ __('messages.login') }}
                     </a>
                 </div>
 
@@ -94,8 +82,116 @@
     @endif
 
     <!-- Main Dynamic Content Region — Broad max-width configuration to adapt well to dashboard layouts -->
-    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        @yield('content')
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col justify-between">
+        
+        <!-- Hero section with 2-column layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center my-auto">
+            <!-- Left Column: Copywriting and Buttons -->
+            <div class="lg:col-span-5 space-y-6 text-left">
+                <div class="space-y-3">
+                    <h1 class="text-4xl md:text-[44px] font-black text-slate-900 tracking-tight leading-[1.1] font-sans">
+                        Public Service.<br>
+                        Transparent. Accountable.<br>
+                        For Every Nepali.
+                    </h1>
+                </div>
+
+                <div class="space-y-3 text-slate-600 text-sm md:text-base leading-relaxed">
+                    <p class="font-medium">
+                        Track your visits, get real-time updates, submit feedback and help us build a better, more accountable government.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <!-- Start Service -->
+                    <a href="/scan?office=district-administration-office-kathmandu" class="inline-flex items-center justify-center bg-blue-900 hover:bg-blue-800 text-white px-6 py-3 rounded-lg font-bold text-sm transition-colors shadow-sm min-w-[180px] text-center">
+                        Start Service
+                    </a>
+                    
+                    <!-- Track My Visit -->
+                    <a href="#" class="inline-flex items-center justify-center border border-blue-900 hover:bg-blue-50 text-blue-900 bg-white px-6 py-3 rounded-lg font-bold text-sm transition-colors min-w-[180px] text-center">
+                        Track My Visit
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Vector Illustration -->
+            <div class="lg:col-span-7 flex justify-center">
+                <div class="relative w-full max-w-2xl bg-white p-1 rounded-2xl shadow-xs border border-slate-200/40">
+                    <img src="{{ asset('images/citizen_service_hub.png') }}" alt="Citizen Service Hub Illustration" class="w-full h-auto rounded-xl object-cover">
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-time Stats Grid at the bottom -->
+        <div class="border-t border-slate-200/80 pt-8 mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 text-center">
+            <!-- Stat 1 -->
+            <div class="flex items-center justify-start space-x-3 text-left">
+                <div class="w-10 h-10 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-xl shrink-0">
+                    👥
+                </div>
+                <div>
+                    <div class="text-lg font-black text-slate-800 leading-tight">2.8M+</div>
+                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">Services Provided</div>
+                </div>
+            </div>
+
+            <!-- Stat 2 -->
+            <div class="flex items-center justify-start space-x-3 text-left">
+                <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl shrink-0">
+                    🪪
+                </div>
+                <div>
+                    <div class="text-lg font-black text-slate-800 leading-tight">1.6M+</div>
+                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">Citizen Registrations</div>
+                </div>
+            </div>
+
+            <!-- Stat 3 -->
+            <div class="flex items-center justify-start space-x-3 text-left">
+                <div class="w-10 h-10 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-xl shrink-0">
+                    ⏱️
+                </div>
+                <div>
+                    <div class="text-lg font-black text-slate-800 leading-tight">98.2%</div>
+                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">On-time Service</div>
+                </div>
+            </div>
+
+            <!-- Stat 4 -->
+            <div class="flex items-center justify-start space-x-3 text-left">
+                <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl shrink-0">
+                    ⬇️
+                </div>
+                <div>
+                    <div class="text-lg font-black text-slate-800 leading-tight">4.7/5</div>
+                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">Satisfaction Score</div>
+                </div>
+            </div>
+
+            <!-- Stat 5 -->
+            <div class="flex items-center justify-start space-x-3 text-left">
+                <div class="w-10 h-10 bg-blue-50 text-blue-900 rounded-xl flex items-center justify-center text-xl shrink-0">
+                    🏫
+                </div>
+                <div>
+                    <div class="text-lg font-black text-slate-800 leading-tight">7,532</div>
+                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">Offices Covered</div>
+                </div>
+            </div>
+
+            <!-- Stat 6 -->
+            <div class="flex items-center justify-start space-x-3 text-left">
+                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl shrink-0">
+                    📍
+                </div>
+                <div>
+                    <div class="text-lg font-black text-slate-800 leading-tight">77</div>
+                    <div class="text-[10px] font-bold text-slate-400 leading-none mt-1">Districts Covered</div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Unified Public Sector Footer -->
