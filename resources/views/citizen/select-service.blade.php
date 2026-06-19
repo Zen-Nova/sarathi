@@ -8,7 +8,7 @@
 @section('title', $ne ? 'सेवा चयन गर्नुहोस्' : 'Select Service')
 
 @section('content')
-<div class="max-w-2xl mx-auto px-4 py-8 sm:py-16 selection:bg-blue-600 selection:text-white">
+<div class="max-w-6xl mx-auto px-4 py-8 sm:py-16 selection:bg-blue-600 selection:text-white">
     
     <main class="relative bg-white rounded-[2rem] border border-slate-100 shadow-[0_20px_50px_rgba(15,23,42,0.04)] overflow-hidden transition-all duration-300">
         
