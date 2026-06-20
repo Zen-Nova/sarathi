@@ -8,20 +8,14 @@
 @section('title', $ne ? 'सेवा चयन गर्नुहोस्' : 'Select Service')
 
 @section('content')
-<div class="max-w-6xl mx-auto px-4 py-8 sm:py-16 selection:bg-blue-600 selection:text-white">
+<div class="max-w-8xl lg:max-w-6xl py-2 sm:py-4 selection:bg-blue-600 selection:text-white">
     
     <main class="relative bg-white rounded-[2rem] border border-slate-100 shadow-[0_20px_50px_rgba(15,23,42,0.04)] overflow-hidden transition-all duration-300">
-        
-        <div class="absolute top-0 left-0 right-0 h-1.5 flex">
-            <div class="w-1/2 bg-red-600"></div>
-            <div class="w-1/2 bg-blue-700"></div>
-        </div>
         
         <div class="p-6 sm:p-12">
             <header class="mb-10">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-4">
-                    <span>🏛️</span>
-                    <span>{{ $ne ? 'राहदानी विभाग' : 'Department of Passports' }}</span>
+                   {{ $ne ? 'राहदानी विभाग' : 'Department of Passports' }}
                 </div>
                 
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
@@ -80,7 +74,7 @@
                 </a>
                 
                 <span class="text-[11px] text-slate-400 font-medium flex items-center gap-1">
-                    🔒 {{ $ne ? 'सुरक्षित नागरिक सेसन' : 'Secure Session' }}
+                    {{ $ne ? 'सुरक्षित नागरिक सेसन' : 'Secure Session' }}
                 </span>
             </footer>
         </div>

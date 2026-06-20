@@ -27,7 +27,7 @@
 @endpush
 
 @section('content')
-<div class="max-w-4xl mx-auto px-4 py-4 sm:py-8 selection:bg-blue-600 selection:text-white">
+<div class="max-w-6xl mx-auto px-4 py-4 sm:py-8 selection:bg-blue-600 selection:text-white">
     
     <!-- Top Nav Action Row (no-print) -->
     <div class="flex items-center justify-between mb-6 no-print">
