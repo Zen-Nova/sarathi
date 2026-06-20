@@ -34,10 +34,9 @@
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             
             <!-- Card 1: Passport Department -->
-            <div class="group bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-blue-600 hover:bg-gradient-to-b hover:from-white hover:to-blue-50/20 transition-all duration-300 flex flex-col justify-between cursor-pointer">
+            <a href="{{ route('portal.select-service', ['department' => 'passport']) }}" class="group bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-blue-600 hover:bg-gradient-to-b hover:from-white hover:to-blue-50/20 transition-all duration-300 flex flex-col justify-between cursor-pointer no-underline">
                 <div>
-                    <img src="{{ asset('images/passport.png') }}" alt="Passport Icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-lg sm:text-xl font-semibold group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
-                        
+                    <img src="{{ asset('images/passport.png') }}" alt="Passport Icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 transition-all duration-300 shadow-sm group-hover:scale-105">
                     <h3 class="mt-4 text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
                         {{ $ne ? 'राहदानी विभाग (e-Passport)' : 'Passport Department' }}
                     </h3>
@@ -46,20 +45,19 @@
                     </p>
                 </div>
                 <div class="mt-5 pt-4 border-t border-slate-100">
-                    <a href="{{ route('portal.select-service', ['department' => 'passport']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
+                    <span class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
                         <span>{{ $ne ? 'कागजात र विवरण' : 'View Details' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
-                    </a>
+                    </span>
                 </div>
-            </div>
+            </a>
 
             <!-- Card 2: District Administration -->
-            <div class="group bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-blue-600 hover:bg-gradient-to-b hover:from-white hover:to-blue-50/20 transition-all duration-300 flex flex-col justify-between cursor-pointer">
+            <a href="{{ route('portal.select-service', ['department' => 'citizenship']) }}" class="group bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-blue-600 hover:bg-gradient-to-b hover:from-white hover:to-blue-50/20 transition-all duration-300 flex flex-col justify-between cursor-pointer no-underline">
                 <div>
-                    <img src="{{ asset('images/Admin.png') }}" alt="District Administration Icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-lg sm:text-xl font-semibold group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
-                        
+                    <img src="{{ asset('images/Admin.png') }}" alt="District Administration Icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 transition-all duration-300 shadow-sm group-hover:scale-105">
                     <h3 class="mt-4 text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
                         {{ $ne ? 'जिल्ला प्रशासन (नागरिकता)' : 'District Administration' }}
                     </h3>
@@ -68,19 +66,19 @@
                     </p>
                 </div>
                 <div class="mt-5 pt-4 border-t border-slate-100">
-                    <a href="{{ route('portal.select-service', ['department' => 'citizenship']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
+                    <span class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
                         <span>{{ $ne ? 'कागजात र विवरण' : 'View Details' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
-                    </a>
+                    </span>
                 </div>
-            </div>
+            </a>
 
             <!-- Card 3: National ID -->
-            <div class="group bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-blue-600 hover:bg-gradient-to-b hover:from-white hover:to-blue-50/20 transition-all duration-300 flex flex-col justify-between cursor-pointer">
+            <a href="{{ route('portal.select-service', ['department' => 'nid']) }}" class="group bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-blue-600 hover:bg-gradient-to-b hover:from-white hover:to-blue-50/20 transition-all duration-300 flex flex-col justify-between cursor-pointer no-underline">
                 <div>
-                    <img src="{{ asset('images/nid.png') }}" alt="National ID Icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-lg sm:text-xl font-semibold group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                    <img src="{{ asset('images/nid.png') }}" alt="National ID Icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 transition-all duration-300 shadow-sm group-hover:scale-105">
                     <h3 class="mt-4 text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
                         {{ $ne ? 'राष्ट्रिय परिचयपत्र (NID)' : 'National ID & Registration' }}
                     </h3>
@@ -89,19 +87,19 @@
                     </p>
                 </div>
                 <div class="mt-5 pt-4 border-t border-slate-100">
-                    <a href="{{ route('portal.select-service', ['department' => 'nid']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
+                    <span class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
                         <span>{{ $ne ? 'कागजात र विवरण' : 'View Details' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
-                    </a>
+                    </span>
                 </div>
-            </div>
+            </a>
 
             <!-- Card 4: Driving License -->
-            <div class="group bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-blue-600 hover:bg-gradient-to-b hover:from-white hover:to-blue-50/20 transition-all duration-300 flex flex-col justify-between cursor-pointer">
+            <a href="{{ route('portal.select-service', ['department' => 'license']) }}" class="group bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-blue-600 hover:bg-gradient-to-b hover:from-white hover:to-blue-50/20 transition-all duration-300 flex flex-col justify-between cursor-pointer no-underline">
                 <div>
-                    <img src="{{ asset('images/transport.png') }}" alt="Driving License Icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-lg sm:text-xl font-semibold group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                    <img src="{{ asset('images/transport.png') }}" alt="Driving License Icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 transition-all duration-300 shadow-sm group-hover:scale-105">
                     <h3 class="mt-4 text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
                         {{ $ne ? 'यातायात व्यवस्था (लाइसेन्स)' : 'Transport Management' }}
                     </h3>
@@ -110,14 +108,14 @@
                     </p>
                 </div>
                 <div class="mt-5 pt-4 border-t border-slate-100">
-                    <a href="{{ route('portal.select-service', ['department' => 'license']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
+                    <span class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
                         <span>{{ $ne ? 'कागजात र विवरण' : 'View Details' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
-                    </a>
+                    </span>
                 </div>
-            </div>
+            </a>
 
         </div>
     </main>
