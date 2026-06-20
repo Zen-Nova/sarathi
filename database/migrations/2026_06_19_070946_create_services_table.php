@@ -16,6 +16,12 @@ return new class extends Migration
             $table->string('name_en');
             $table->string('name_np');
             
+            $table->string('slug')->unique();
+            $table->text('desc_en')->nullable();
+            $table->text('desc_ne')->nullable();
+            $table->string('est_en')->nullable();
+            $table->string('est_ne')->nullable();
+            
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

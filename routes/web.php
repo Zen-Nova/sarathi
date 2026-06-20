@@ -158,14 +158,6 @@ $servicesData = function () {
 /**
  * Standard Helper Operations
  */
-$services = function () use ($servicesData) {
-    return json_decode(json_encode($servicesData()), false);
-};
-
-$getServiceById = function ($id) use ($services) {
-    return collect($services())->firstWhere('id', $id);
-};
-
 /*
 |--------------------------------------------------------------------------
 | Portal General Web Core Routes
@@ -176,8 +168,32 @@ Route::get('/', function () {
     return view('home');
 })->name('portal.home');
 
-Route::get('/select-service', function () use ($services) {
-    return view('citizen.select-service', ['services' => $services()]);
+Route::get('/select-service', function (Request $request) {
+    $deptParam = $request->query('department');
+    
+    $slugMap = [
+        'passport' => 'passport-visa',
+        'citizenship' => 'administration',
+        'nid' => 'national-id',
+        'license' => 'transport',
+    ];
+    
+    $slug = $slugMap[$deptParam] ?? $deptParam;
+    
+    $department = \App\Models\Department::where('slug', $slug)->first();
+    
+    if ($department) {
+        $services = \App\Models\Service::where('department_id', $department->id)
+            ->where('is_active', true)
+            ->with('steps')
+            ->get();
+    } else {
+        $services = \App\Models\Service::where('is_active', true)
+            ->with('steps')
+            ->get();
+    }
+    
+    return view('citizen.select-service', compact('services', 'department'));
 })->name('portal.select-service');
 
 Route::get('/contact', function () {
@@ -190,29 +206,27 @@ Route::get('/contact', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::post('/start-tracking', function (Request $request) use ($getServiceById) {
-    $request->validate(['service_id' => ['required', 'string']]);
+Route::post('/start-tracking', function (Request $request) {
+    $request->validate(['service_id' => ['required', 'exists:services,id']]);
 
-    if (!$getServiceById($request->input('service_id'))) {
-        return redirect()->route('portal.select-service')->with('error', 'Invalid service selected.');
-    }
+    $service = \App\Models\Service::findOrFail($request->input('service_id'));
 
     session([
         'tracking_token' => 'NEP-' . strtoupper(Str::random(4)) . '-' . rand(100, 999),
-        'service_id' => $request->input('service_id'),
+        'service_id' => $service->id,
         'checked_in_at' => now()->toDateTimeString(),
     ]);
 
     return redirect()->route('portal.active-guide');
 })->name('start-tracking');
 
-Route::get('/active-guide', function () use ($getServiceById) {
+Route::get('/active-guide', function () {
     $serviceId = session('service_id');
     if (!$serviceId) {
         return redirect()->route('portal.select-service');
     }
 
-    $selectedService = $getServiceById($serviceId);
+    $selectedService = \App\Models\Service::with('steps')->find($serviceId);
     if (!$selectedService) {
         session()->forget(['tracking_token', 'service_id']);
         return redirect()->route('portal.select-service');
@@ -230,8 +244,8 @@ Route::get('/active-guide', function () use ($getServiceById) {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/checkout', function () use ($getServiceById) {
-    $selectedService = session('service_id') ? $getServiceById(session('service_id')) : null;
+Route::get('/checkout', function () {
+    $selectedService = session('service_id') ? \App\Models\Service::find(session('service_id')) : null;
     return view('citizen.checkout', ['selectedService' => $selectedService]);
 })->name('portal.checkout');
 
@@ -256,7 +270,7 @@ Route::get('/roadmap', function () {
     return view('citizen.roadmap');
 })->name('portal.roadmap');
 
-Route::get('/document-checklist/{service}', function ($service) use ($services) {
+Route::get('/document-checklist/{service}', function ($service) {
     $checklistData = [
         'passport' => [
             'name_ne' => 'राहदानी (Passport) - कागजात चेकलिस्ट',
@@ -465,7 +479,7 @@ Route::get('/document-checklist/{service}', function ($service) use ($services) 
     return view('citizen.document-checklist', [
         'serviceKey' => $service,
         'checklist' => $checklistData[$service],
-        'services' => $services()
+        'services' => \App\Models\Service::where('is_active', true)->get()
     ]);
 })->name('portal.document-checklist');
 

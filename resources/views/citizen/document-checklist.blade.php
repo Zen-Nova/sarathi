@@ -107,7 +107,7 @@
             <span>{{ $ne ? 'गृहपृष्ठमा फर्कनुहोस्' : 'Go Back to Home' }}</span>
         </a>
         
-        <a href="{{ route('portal.select-service') }}" class="inline-flex items-center gap-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 text-xs font-black transition-all duration-200 shadow-md hover:scale-[1.02] w-full sm:w-auto justify-center">
+        <a href="{{ route('portal.select-service', ['department' => $serviceKey]) }}" class="inline-flex items-center gap-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 text-xs font-black transition-all duration-200 shadow-md hover:scale-[1.02] w-full sm:w-auto justify-center">
             <span>{{ $ne ? 'आवेदन प्रक्रिया सुरु गर्नुहोस्' : 'Proceed to Application' }}</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />

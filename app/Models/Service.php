@@ -12,12 +12,37 @@ class Service extends Model
 {
     use HasFactory;
 
-    // Added 'slug' to prevent mass-assignment errors during database seeding
-    protected $fillable = ['department_id', 'slug', 'name_en', 'name_np', 'is_active'];
+    protected $fillable = [
+        'department_id',
+        'slug',
+        'name_en',
+        'name_np',
+        'desc_en',
+        'desc_ne',
+        'est_en',
+        'est_ne',
+        'is_active'
+    ];
 
     public function getNameAttribute(): string
     {
-        return $this->{"name_" . App::getLocale()} ?? $this->name_en;
+        $locale = App::getLocale();
+        return $this->attributes["name_{$locale}"] ?? $this->attributes['name_en'] ?? '';
+    }
+
+    public function getNameNeAttribute()
+    {
+        return $this->attributes['name_np'] ?? '';
+    }
+
+    public function getDescNeAttribute()
+    {
+        return $this->attributes['desc_ne'] ?? '';
+    }
+
+    public function getEstNeAttribute()
+    {
+        return $this->attributes['est_ne'] ?? '';
     }
 
     public function department(): BelongsTo

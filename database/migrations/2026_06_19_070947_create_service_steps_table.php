@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('title_np');
             $table->text('instructions_en')->nullable();
             $table->text('instructions_np')->nullable();
+            $table->json('requirements_en')->nullable();
+            $table->json('requirements_ne')->nullable();
             
             $table->timestamps();
             
