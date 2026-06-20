@@ -42,10 +42,10 @@
                                 
                                 <div class="flex flex-wrap items-center gap-2 mt-2">
                                     <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-50 border border-slate-200/60 text-[11px] font-semibold text-slate-500 group-hover:bg-blue-50/50 group-hover:text-blue-700 group-hover:border-blue-100 transition-all duration-200">
-                                        ⏱ {{ $ne ? $service->est_ne : $service->est_en }}
+                                         {{ $ne ? $service->est_ne : $service->est_en }}
                                     </span>
                                     <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-50 border border-slate-200/60 text-[11px] font-semibold text-slate-500 group-hover:bg-blue-50/50 group-hover:text-blue-700 group-hover:border-blue-100 transition-all duration-200">
-                                        📋 {{ count($service->steps) }} {{ $ne ? 'चरण' : 'steps' }}
+                                         {{ count($service->steps) }} {{ $ne ? 'चरण' : 'steps' }}
                                     </span>
                                 </div>
 
