@@ -59,7 +59,7 @@
                     <a href="{{ route('portal.home') }}" class="flex items-center gap-3 min-w-0">
                         <img src="{{ asset('images/emblem.svg') }}" alt="Emblem of Nepal" class="h-14 w-auto hover:scale-105 transition-transform duration-300">
                         <div class="hidden sm:block leading-none text-left">
-                            <span class="text-lg font-bold text-slate-900 tracking-tight block">{{ $ne ? 'नागरिक सारथी' : 'Nagarik Sarthi' }}</span>
+                            <span class="text-lg font-bold text-slate-900 tracking-tight block">{{ $ne ? 'नागरिक सारथी' : 'Nagarik Sarathi' }}</span>
                         </div>
                     </a>
 
