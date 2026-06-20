@@ -1,11 +1,72 @@
 @extends('layouts.citizen')
 
 @php
+    use Illuminate\Support\Str;
+
     $locale = session('locale', 'ne');
     $ne = $locale === 'ne';
+
+    $service = $selectedService ?? $services->first();
+
+    $departmentName = $ne
+        ? ($department->name_ne ?? $department->name ?? 'सेवा')
+        : ($department->name_en ?? $department->name ?? 'Service');
+
+    $serviceName = $service
+        ? ($ne ? ($service->name_ne ?? $service->name ?? '') : ($service->name_en ?? $service->name ?? ''))
+        : $departmentName;
+
+    $serviceDesc = $service
+        ? ($ne
+            ? ($service->desc_ne ?? $service->description_ne ?? $service->description ?? '')
+            : ($service->desc_en ?? $service->description_en ?? $service->description ?? '')
+        )
+        : '';
+
+    $normalizeList = function ($value) {
+        if (is_array($value)) {
+            return $value;
+        }
+
+        if (is_string($value)) {
+            $decoded = json_decode($value, true);
+
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                return $decoded;
+            }
+
+            return array_values(array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', $value))));
+        }
+
+        return [];
+    };
+
+    $documents = collect();
+
+    if ($service && $service->steps) {
+        foreach ($service->steps as $step) {
+            $items = $ne
+                ? $normalizeList($step->requirements_ne ?? $step->requirements ?? null)
+                : $normalizeList($step->requirements_en ?? $step->requirements ?? null);
+
+            foreach ($items as $item) {
+                $documents->push([
+                    'title' => $item,
+                    'step' => $ne
+                        ? ($step->title_ne ?? $step->title ?? '')
+                        : ($step->title_en ?? $step->title ?? ''),
+                    'location' => $ne
+                        ? ($step->location_ne ?? $step->location ?? '')
+                        : ($step->location_en ?? $step->location ?? ''),
+                ]);
+            }
+        }
+    }
+
+    $documents = $documents->unique('title')->values();
 @endphp
 
-@section('title', $ne ? $checklist['name_ne'] : $checklist['name_en'])
+@section('title', $serviceName)
 
 @push('styles')
 <style>
@@ -13,10 +74,12 @@
         header, nav, footer, .no-print {
             display: none !important;
         }
+
         body {
             background-color: #fff !important;
             color: #000 !important;
         }
+
         .print-card {
             border: 1px solid #cbd5e1 !important;
             box-shadow: none !important;
@@ -29,96 +92,120 @@
 @section('content')
 <div class="max-w-6xl mx-auto sm:py-8 selection:bg-blue-600 selection:text-white">
 
-    <!-- Hero Service Header Card -->
     <div class="relative rounded-3xl bg-[#003B93] p-6 sm:p-8 text-white shadow-xl overflow-hidden mb-8">
-        <!-- Accent circles inside banner -->
         <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-white/10 blur-xl"></div>
         <div class="absolute right-12 top-4 w-20 h-20 rounded-full bg-white/10 blur-lg"></div>
-        
-        <div class="relative flex flex-col sm:flex-row sm:items-center gap-5">
-            <!-- <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 shadow-inner overflow-hidden p-2">
-                @if(Str::endsWith($checklist['icon'], ['.png', '.svg']))
-                    <img src="{{ asset('images/' . $checklist['icon']) }}" alt="Icon" class="w-full h-full object-contain">
-                @else
-                    <span class="text-3xl">{{ $checklist['icon'] }}</span>
-                @endif
-            </div> -->
-            <div>
-                <span class="inline-flex items-center gap-1.5 py-1 rounded-full  text-[10px] sm:text-xs font-black uppercase tracking-wider">
-                    
-                    {{ $ne ? 'अधिकारीक कागजात सूची' : 'Official Requirements' }}
-                </span>
-                <h1 class="mt-2.5 text-xl sm:text-3xl font-extrabold tracking-tight">
-                    {{ $ne ? $checklist['name_ne'] : $checklist['name_en'] }}
-                </h1>
+
+        <div class="relative">
+            <span class="inline-flex items-center py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider">
+                {{ $ne ? 'अधिकारीक कागजात सूची' : 'Official Requirements' }}
+            </span>
+
+            <h1 class="mt-2.5 text-xl sm:text-3xl font-extrabold tracking-tight">
+                {{ $serviceName }}
+            </h1>
+
+            @if($serviceDesc)
                 <p class="mt-2 text-xs sm:text-sm text-white/90 leading-relaxed font-medium">
-                    {{ $ne ? 'यो सेवा प्राप्त गर्न आवश्यक पर्ने सम्पूर्ण कागजातहरूको सूची तल दिइएको छ। कृपया आफूसँग भएका कागजातहरू जाँच्नुहोस्।' : 'Official checklist of documents needed before submitting your request. Check off each item to ensure your office visit is hassle-free.' }}
+                    {{ $serviceDesc }}
                 </p>
-            </div>
+            @else
+                <p class="mt-2 text-xs sm:text-sm text-white/90 leading-relaxed font-medium">
+                    {{ $ne ? 'यो सेवा सुरु गर्नु अघि आवश्यक कागजातहरू जाँच गर्नुहोस्।' : 'Check the required documents before starting this service.' }}
+                </p>
+            @endif
         </div>
     </div>
 
-    <!-- Checklist Cards Grid Layout (2 by 2 on desktop view) -->
+    @if($services->count() > 1)
+        <div class="mb-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm no-print">
+            <form method="POST" action="{{ route('portal.pick-service') }}">
+                @csrf
+
+                <label class="mb-2 block text-sm font-bold text-slate-800">
+                    {{ $ne ? 'सेवा छान्नुहोस्' : 'Choose Service' }}
+                </label>
+
+                <select
+                    name="service_id"
+                    onchange="this.form.submit()"
+                    class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 outline-none focus:border-blue-700"
+                >
+                    @foreach($services as $item)
+                        <option value="{{ $item->id }}" @selected($service && $service->id === $item->id)>
+                            {{ $ne ? ($item->name_ne ?? $item->name) : ($item->name_en ?? $item->name) }}
+                        </option>
+                    @endforeach
+                </select>
+            </form>
+        </div>
+    @endif
+
     <div class="space-y-6">
-        <h2 class="text-base sm:text-lg font-black text-slate-800 tracking-tight flex items-center gap-2 px-1">
+        <h2 class="text-base sm:text-lg font-black text-slate-800 tracking-tight px-1">
             {{ $ne ? 'कागजातहरूको सूची' : 'Required Documents' }}
         </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            @foreach($checklist['docs'] as $idx => $doc)
-                <div class="print-card group bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-md transition-all duration-300 flex items-start gap-4 relative">
-
-                    <div class="flex-1 min-w-0">
+        @if($documents->count())
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                @foreach($documents as $doc)
+                    <div class="print-card bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm transition-all duration-300">
                         <div class="flex items-start justify-between gap-3">
                             <h3 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight break-words flex-1">
-                                {{ $ne ? $doc['title_ne'] : $doc['title_en'] }}
+                                {{ $doc['title'] }}
                             </h3>
-                            <div class="shrink-0 pt-0.5">
-                                @if($doc['required'])
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-100 text-[10px] font-black text-rose-700 uppercase">
-                                        {{ $ne ? 'अनिवार्य' : 'Required' }}
-                                    </span>
-                                @else
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-100 text-[10px] font-black text-amber-700 uppercase">
-                                        {{ $ne ? 'ऐच्छिक' : 'Optional' }}
-                                    </span>
-                                @endif
-                            </div>
+
+                            <span class="shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-100 text-[10px] font-black text-rose-700 uppercase">
+                                {{ $ne ? 'अनिवार्य' : 'Required' }}
+                            </span>
                         </div>
-                        
-                        <p class="mt-2 text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">
-                            {{ $ne ? $doc['desc_ne'] : $doc['desc_en'] }}
-                        </p>
+
+                        @if($doc['step'])
+                            <p class="mt-2 text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">
+                                {{ $ne ? 'चरण:' : 'Step:' }} {{ $doc['step'] }}
+                            </p>
+                        @endif
+
+                        @if($doc['location'])
+                            <p class="mt-1 text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">
+                                {{ $ne ? 'स्थान:' : 'Location:' }} {{ $doc['location'] }}
+                            </p>
+                        @endif
                     </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
+        @else
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <p class="text-sm font-medium text-slate-600">
+                    {{ $ne ? 'यस सेवाका लागि कागजात सूची हाल उपलब्ध छैन।' : 'Document checklist is not available for this service yet.' }}
+                </p>
+            </div>
+        @endif
     </div>
 
-    <!-- Bottom Actions Row (no-print) -->
-    <div class="mt-12 pt-6 border-t border-slate-200 flex items-center justify-between gap-4 no-print">
-        <a href="{{ route('portal.select-service', isset($departmentParam) ? ['department' => $departmentParam] : []) }}" class="inline-flex items-center gap-2 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50 px-5 py-3 text-xs font-bold text-slate-600 transition-all duration-200 shadow-sm w-full sm:w-auto justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-            <span>{{ $ne ? 'सेवा चयनमा फर्कनुहोस्' : 'Back to Service Selection' }}</span>
+    <div class="mt-12 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 no-print">
+        <a
+            href="{{ route('portal.select-service', isset($departmentParam) ? ['department' => $departmentParam] : []) }}"
+            class="rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50 px-5 py-3 text-xs font-bold text-slate-600 transition-all duration-200 shadow-sm w-full sm:w-auto text-center"
+        >
+            {{ $ne ? 'सेवा चयनमा फर्कनुहोस्' : 'Back to Service Selection' }}
         </a>
-        
-        @if(session('service_id'))
-        <form method="POST" action="{{ route('start-tracking') }}" class="w-full sm:w-auto">
-            @csrf
-            <input type="hidden" name="service_id" value="{{ session('service_id') }}">
-            <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 text-xs font-black transition-all duration-200 shadow-md hover:scale-[1.02] w-full sm:w-auto justify-center">
-                <span>{{ $ne ? 'आवेदन प्रक्रिया सुरु गर्नुहोस्' : 'Proceed to Application' }}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>
-            </button>
-        </form>
+
+        @if($service)
+            <form method="POST" action="{{ route('start-tracking') }}" class="w-full sm:w-auto">
+                @csrf
+
+                <input type="hidden" name="service_id" value="{{ $service->id }}">
+
+                <button
+                    type="submit"
+                    class="rounded-xl bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 text-xs font-black transition-all duration-200 shadow-md w-full sm:w-auto"
+                >
+                    {{ $ne ? 'आवेदन प्रक्रिया सुरु गर्नुहोस्' : 'Proceed to Application' }}
+                </button>
+            </form>
         @endif
     </div>
 
 </div>
-
-
 @endsection
