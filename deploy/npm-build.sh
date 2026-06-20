@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 
-cd sarathi.techzenova.com
-
+cd /home/techzeno/sarathi.techzenova.com
 export RAYON_NUM_THREADS=1
 export GOMAXPROCS=1
 export NODE_OPTIONS="--max-old-space-size=512"
