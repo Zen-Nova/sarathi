@@ -59,7 +59,6 @@
                     <a href="{{ route('portal.home') }}" class="flex items-center gap-3 min-w-0">
                         <img src="{{ asset('images/emblem.svg') }}" alt="Emblem of Nepal" class="h-9 w-auto hover:scale-105 transition-transform duration-300">
                         <div class="hidden sm:block leading-none text-left">
-                            <span class="text-[9px] font-black text-red-600 uppercase tracking-widest block">{{ $ne ? 'नेपाल सरकार' : 'GOVERNMENT OF NEPAL' }}</span>
                             <span class="text-xs font-black text-slate-900 tracking-tight block">{{ $ne ? 'नागरिक सारथी' : 'Nagarik Sarthi' }}</span>
                         </div>
                     </a>
@@ -98,9 +97,9 @@
                         </a>
 
                         <!-- Register Button -->
-                        <a href="{{ route('portal.select-service') }}" class="hidden sm:inline-block px-4 py-2 rounded-full bg-blue-700 hover:bg-blue-800 hover:scale-[1.02] active:scale-[0.98] text-white font-black text-xs transition-all shadow-sm">
-                            {{ $ne ? 'प्रवेश' : 'Login' }}
-                        </a>
+                       <a href="{{ route('filament.admin.auth.login') }}" class="hidden sm:inline-block px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+    {{ $ne ? 'प्रवेश' : 'Login' }}
+</a>
 
                         <!-- Mobile Hamburger Button -->
                         <button id="menu-toggle-btn" class="md:hidden p-1 text-slate-600 hover:text-blue-650 focus:outline-none" aria-label="Toggle menu">
