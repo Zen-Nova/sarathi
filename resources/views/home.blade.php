@@ -58,7 +58,7 @@
                 <!-- Card 2: District Administration -->
                 <div class="group bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-blue-600 hover:bg-gradient-to-b hover:from-white hover:to-blue-50/20 transition-all duration-300 flex flex-col justify-between cursor-pointer">
                     <div>
-                        <img src="{{ asset('images/admin.png') }}" alt="District Administration Icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-lg sm:text-xl font-semibold group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                        <img src="{{ asset('images/Admin.png') }}" alt="District Administration Icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-lg sm:text-xl font-semibold group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
                             
                         <h3 class="mt-4 text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
                             {{ $ne ? 'जिल्ला प्रशासन (नागरिकता)' : 'District Administration' }}
