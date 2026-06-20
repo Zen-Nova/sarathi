@@ -123,13 +123,6 @@
     </main>
 
     <!-- Clear, Functional Bottom Meta Information Section -->
-    <footer class="mt-10 pt-6 border-t border-slate-200">
-        <!-- Eye-catching Security Badge -->
-        <div class="mt-5 flex justify-center">
-            <span class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] sm:text-xs text-emerald-800 font-bold shadow-sm tracking-wide">
-                🔒 {{ $ne ? 'कुनै लगइन आवश्यक छैन • नागरिक सहजताका लागि सुरक्षित सेवा' : 'No Login Required • Secure Routing Engineered for Public Utility' }}
-            </span>
-        </div>
-    </footer>
+    
 </div>
 @endsection
