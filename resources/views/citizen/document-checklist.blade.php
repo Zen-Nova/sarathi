@@ -94,24 +94,22 @@
             @endforeach
         </div>
     </div>
-
-    <!-- Bottom Actions Row (no-print) -->
-    <div class="mt-12 pt-6 border-t border-slate-200 flex items-center justify-start no-print">
-        <a href="{{ route('portal.home') }}" class="inline-flex items-center gap-2 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50 px-5 py-3 text-xs font-bold text-slate-600 transition-all duration-200 shadow-sm w-full sm:w-auto justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-            <span>{{ $ne ? 'गृहपृष्ठमा फर्कनुहोस्' : 'Go Back to Home' }}</span>
-        </a>
-        
-        <a href="{{ route('portal.select-service', ['department' => $serviceKey]) }}" class="inline-flex items-center gap-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 text-xs font-black transition-all duration-200 shadow-md hover:scale-[1.02] w-full sm:w-auto justify-center">
-            <span>{{ $ne ? 'आवेदन प्रक्रिया सुरु गर्नुहोस्' : 'Proceed to Application' }}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-        </a>
-    </div>
-
+<!-- button parts-->
+   <div class="mt-12 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 no-print">
+    <a href="{{ route('portal.home') }}" class="inline-flex items-center gap-2 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50 px-5 py-3 text-xs font-bold text-slate-600 transition-all duration-200 shadow-sm w-full sm:w-auto justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+        <span>{{ $ne ? 'गृहपृष्ठमा फर्कनुहोस्' : 'Go Back to Home' }}</span>
+    </a>
+    
+    <a href="{{ route('portal.select-service', ['department' => $serviceKey]) }}" class="inline-flex items-center gap-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 text-xs font-black transition-all duration-200 shadow-md hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto justify-center">
+        <span>{{ $ne ? 'आवेदन प्रक्रिया सुरु गर्नुहोस्' : 'Proceed to Application' }}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+    </a>
+</div>
 </div>
 
 
