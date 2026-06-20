@@ -17,7 +17,7 @@
 @section('title', $ne ? 'निकास प्रतिक्रिया' : 'Checkout Feedback')
 
 @section('content')
-<div class="max-w-6xl mx-auto px-4 py-6 selection:bg-blue-600 selection:text-white">
+<div class="max-w-6xl mx-auto px-4 py-6 selection:bg-blue-600 selection:text-white font-sans">
     <section class="rounded-2xl border border-slate-200 bg-white shadow-sm p-6 sm:p-8 lg:p-10 transition-all duration-300">
         
         <form method="POST" action="{{ route('portal.submit-checkout') }}" class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -30,15 +30,15 @@
                 
                 <div class="space-y-3">
                     <div>
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-blue-200 bg-blue-50/50 text-[10px] font-bold uppercase tracking-widest text-blue-700 shadow-sm">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-blue-200 bg-blue-50/50 text-[11px] font-semibold text-blue-700 shadow-sm">
                             {{ $ne ? 'नागरिक पृष्ठपोषण डेस्क' : 'Citizen Feedback Desk' }}
                         </span>
                     </div>
-                    <h2 class="text-2xl font-bold tracking-tight text-slate-900">
+                    <h2 class="text-3xl text-bold text-slate-900">
                         {{ $ne ? 'सेवा प्रवाह मूल्याङ्कन फारम' : 'Service Delivery Assessment' }}
                     </h2>
                     <p class="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                        {{ $ne ? 'नेपाल सरकारका प्रशासनिक सेवाहरूलाई थप पारदर्शी र जवाफदेही बनाउन आफ्नो अनुभव साझा गर्नुहोस्। तपाईंको विवरण पूर्ण रूपमा सुरक्षित रहनेछ।' : 'Help optimize public utility infrastructure by sharing your experience. Your verification audit is highly secured.' }}
+                        {{ $ne ? 'नेपाल सरकारका administrative सेवाहरूलाई थप पारदर्शी र जवाफदेही बनाउन आफ्नो अनुभव साझा गर्नुहोस्। तपाईंको विवरण पूर्ण रूपमा सुरक्षित रहनेछ।' : 'Help optimize public utility infrastructure by sharing your experience. Your verification audit is highly secured.' }}
                     </p>
                     
                     @if(isset($selectedService))
@@ -54,19 +54,19 @@
 
                 <div class="border-t border-slate-100 pt-5 space-y-6">
                     <div class="space-y-3">
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500">
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wide">
                             Q1. {{ $ne ? 'के तपाईंको अभिप्रेत कार्य आज सम्पन्न भयो?' : 'Was your intended workflow completed today?' }} 
                             <span class="text-rose-500">*</span>
                         </label>
                         <div class="grid grid-cols-2 gap-4">
-                            <button type="button" id="yes-btn" class="group flex items-center justify-center gap-2.5 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm transition-all duration-150 shadow-sm hover:border-slate-350 focus:outline-none">
+                            <button type="button" id="yes-btn" class="group flex items-center justify-center gap-2.5 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-medium text-sm transition-all duration-150 shadow-sm hover:border-slate-350 focus:outline-none">
                                 <svg class="w-4 h-4 text-slate-400 group-hover:text-emerald-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                 </svg>
                                 <span>{{ $ne ? 'हो, सम्पन्न भयो' : 'Yes, Completed' }}</span>
                             </button>
                             
-                            <button type="button" id="no-btn" class="group flex items-center justify-center gap-2.5 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm transition-all duration-150 shadow-sm hover:border-slate-350 focus:outline-none">
+                            <button type="button" id="no-btn" class="group flex items-center justify-center gap-2.5 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-medium text-sm transition-all duration-150 shadow-sm hover:border-slate-350 focus:outline-none">
                                 <svg class="w-4 h-4 text-slate-400 group-hover:text-rose-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
@@ -77,7 +77,7 @@
 
                     <div id="success-section" class="rounded-xl border border-slate-200 bg-slate-50/40 p-4 transition-all duration-300 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div class="sm:max-w-[220px] text-left">
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 leading-normal">
+                            <label class="block text-xs font-semibold text-slate-500 leading-normal uppercase tracking-wide">
                                 Q2. {{ $ne ? 'समग्र सेवा सन्तुष्टि स्तर निर्धारण गर्नुहोस्:' : 'Rate your overall satisfaction level:' }} 
                                 <span class="text-rose-500">*</span>
                             </label>
@@ -92,7 +92,7 @@
                                     </button>
                                 @endfor
                             </div>
-                            <div class="w-full flex justify-between text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">
+                            <div class="w-full flex justify-between text-[10px] font-semibold text-slate-400 px-1">
                                 <span>{{ $ne ? 'कमजोर' : 'Poor' }}</span>
                                 <span>{{ $ne ? 'उत्कृष्ट' : 'Excellent' }}</span>
                             </div>
@@ -100,14 +100,14 @@
                     </div>
 
                     <div id="failure-section" class="hidden rounded-xl border border-slate-200 bg-slate-50/40 p-4 transition-all duration-300">
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
+                        <label class="block text-xs font-semibold text-slate-500 mb-3 uppercase tracking-wide">
                             Q2. {{ $ne ? 'कार्य सम्पन्न नहुनुको प्राथमिक कारण छनोट गर्नुहोस्:' : 'Select primary operational bottleneck:' }} 
                             <span class="text-rose-500">*</span>
                         </label>
                         <div class="grid grid-cols-1 gap-2">
                             @foreach($reasons as $key => $label)
                                 <button type="button" data-reason="{{ $key }}" class="reason-btn w-full rounded-lg border border-slate-200 bg-white p-3 text-left text-xs font-medium transition-all flex items-center justify-between gap-3 text-slate-700 hover:bg-slate-50 focus:outline-none">
-                                    <span class="leading-normal">{{ $label }}</span>
+                                    <span class="leading-normal font-medium">{{ $label }}</span>
                                     <span class="reason-dot w-3.5 h-3.5 rounded-full border border-slate-300 bg-slate-50 flex items-center justify-center shrink-0 transition-all">
                                         <span class="inner-dot w-1.5 h-1.5 rounded-full bg-transparent scale-50 transition-all"></span>
                                     </span>
@@ -121,8 +121,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                 </svg>
                                 <div>
-                                    <p class="text-[10px] font-bold uppercase tracking-wider text-red-700">{{ $ne ? 'अख्तियार/सदाचार अनुगमन सतर्कता' : 'Oversight Compliance Protocol' }}</p>
-                                    <p class="mt-0.5 text-xs leading-relaxed text-red-800 font-normal">{{ $ne ? 'यो विवरण प्रशासनिक निगरानी र सुशासन अडिटका लागि गृह मन्त्रालयको विशेष सदाचार शाखामा प्रत्यक्ष दर्ता हुनेछ।' : 'This feedback token is securely queued directly into internal anti-corruption compliance matrices.' }}</p>
+                                    <p class="text-[10px] font-bold text-red-700 uppercase tracking-wide">{{ $ne ? 'अख्तियार/सदाचार अनुगमन सतर्कता' : 'Oversight Compliance Protocol' }}</p>
+                                    <p class="mt-0.5 text-xs leading-relaxed text-red-800 font-normal">{{ $ne ? 'यो विवरण administrative निगरानी र सुशासन अडिटका लागि गृह मन्त्रालयको विशेष सदाचार शाखामा प्रत्यक्ष दर्ता हुनेछ।' : 'This feedback token is securely queued directly into internal anti-corruption compliance matrices.' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -133,11 +133,11 @@
             <div class="lg:col-span-6 flex flex-col justify-between space-y-6">
                 
                 <div class="space-y-2">
-                    <label class="flex justify-between text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <label class="flex justify-between text-xs font-semibold text-slate-500 uppercase tracking-wide">
                         <span>{{ $ne ? 'थप गुणात्मक टिप्पणी वा सुझाव' : 'Qualitative Evaluation / Remarks' }}</span>
                         <span class="text-[10px] text-slate-400 lowercase italic font-normal">{{ $ne ? '(ऐच्छिक)' : '(Optional)' }}</span>
                     </label>
-                    <textarea name="comments" rows="5" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs sm:text-sm font-medium focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none transition-all placeholder-slate-300 shadow-xs" placeholder="{{ $ne ? 'कार्यालयमा भोग्नुभएका विशिष्ट समस्या, ढिलासुस्ती वा सुधारका क्षेत्रहरू उल्लेख गर्नुहोस्...' : 'Specify parameter anomalies, structural counter delays or infrastructural optimization advice...' }}"></textarea>
+                    <textarea name="comments" rows="5" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-xs sm:text-sm font-normal focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none transition-all placeholder-slate-300 shadow-xs" placeholder="{{ $ne ? 'कार्यालयमा भोग्नुभएका विशिष्ट समस्या, ढिलासुस्ती वा सुधारका क्षेत्रहरू उल्लेख गर्नुहोस्...' : 'Specify parameter anomalies, structural counter delays or infrastructural optimization advice...' }}"></textarea>
                 </div>
 
                 <div class="space-y-4">
@@ -149,7 +149,7 @@
                                 </svg>
                             </div>
                             <div class="text-left">
-                                <span class="block text-xs sm:text-sm font-bold text-slate-800 leading-none">{{ $ne ? 'पहिचान पूर्ण गोप्य राख्नुहोस्' : 'Make Review Anonymous' }}</span>
+                                <span class="block text-xs sm:text-sm font-bold text-slate-800 leading-none">{{ $ne ? 'पहिचान पूर्ण गोप्य राख्नुहोस्' : 'Strict Anonymity Routing' }}</span>
                                 <span class="block text-[10px] sm:text-[11px] text-slate-400 font-normal mt-1.5 leading-normal">{{ $ne ? 'तपाईंको नाम र फोन नम्बर डेटाबेसमा इन्क्रिप्ट गरिनेछ।' : 'Biometric profile linkage and metadata identifiers are entirely scrubbed.' }}</span>
                             </div>
                         </div>
@@ -161,12 +161,12 @@
 
                     <div id="identity-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-slate-100 pt-4 transition-all duration-300">
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">{{ $ne ? 'पूरा नाम' : 'Full Name' }}</label>
-                            <input type="text" name="citizen_name" class="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs sm:text-sm font-semibold focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none transition-all shadow-xs" placeholder="Ram Bahadur">
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">{{ $ne ? 'पूरा नाम' : 'Full Name' }}</label>
+                            <input type="text" name="citizen_name" class="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs sm:text-sm font-normal focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none transition-all shadow-xs" placeholder="Ram Bahadur">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">{{ $ne ? 'मोबाइल नम्बर' : 'Mobile Number' }}</label>
-                            <input type="tel" name="citizen_phone" class="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs sm:text-sm font-semibold focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none transition-all shadow-xs" placeholder="984XXXXXXX">
+                            <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">{{ $ne ? 'मोबाइल नम्बर' : 'Mobile Number' }}</label>
+                            <input type="tel" name="citizen_phone" class="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs sm:text-sm font-normal focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none transition-all shadow-xs" placeholder="984XXXXXXX">
                         </div>
                     </div>
                 </div>
@@ -176,7 +176,7 @@
                         {{ $ne ? 'पछाडि जानुहोस्' : 'Cancel' }}
                     </a>
                     
-                    <button type="submit" class="flex-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm shadow-sm transition-all py-2.5 flex items-center justify-center tracking-wide active:scale-[0.995]">
+                    <button type="submit" class="flex-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm shadow-sm transition-all py-2.5 flex items-center justify-center tracking-wide active:scale-[0.995]">
                         {{ $ne ? 'विवरण सुरक्षित रूपमा बुझाउनुहोस्' : 'Submit Authentication Feedback' }}
                     </button>
                 </div>
