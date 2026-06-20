@@ -40,50 +40,61 @@
                 </div>
             </div>
 
-            <div class="space-y-6">
-                @foreach($steps as $step)
-                    <article data-step-panel="{{ $loop->index }}" class="step-panel hidden transition-opacity duration-200">
-                        
-                        <div class="space-y-6 max-w-6xl mx-auto">
-                            <div>
-                                <span class="inline-flex px-2.5 py-0.5 rounded border border-blue-100 bg-blue-50 text-[10px] font-bold text-blue-700 uppercase tracking-wide">
-                                    {{ $ne ? 'चरण' : 'Step' }} {{ $loop->iteration }}
-                                </span>
-                                <h3 class="mt-2 text-lg font-bold text-slate-900 leading-tight">
-                                    {{ $ne ? $step->title_ne : $step->title_en }}
-                                </h3>
-                            </div>
+          <div class="space-y-6">
+    @foreach($steps as $step)
+        <article data-step-panel="{{ $loop->index }}" class="step-panel hidden transition-opacity duration-200">
+            
+            <div class="space-y-5 max-w-6xl mx-auto">
+                <div class="flex flex-col gap-1.5 border-l-2 border-blue-600 pl-4 py-0.5">
+                    <span class="w-fit inline-flex px-2.5 py-0.5 rounded border border-blue-100 bg-blue-50 text-[10px] font-bold text-blue-700 uppercase tracking-wide">
+                        {{ $ne ? 'चरण' : 'Step' }} {{ $loop->iteration }}
+                    </span>
+                    <h3 class="text-lg font-bold text-slate-900 tracking-tight leading-snug">
+                        {{ $ne ? $step->title_ne : $step->title_en }}
+                    </h3>
+                </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
-                                <div class="rounded-xl border border-slate-200 bg-white p-4 flex gap-3.5 items-center shadow-2xs hover:border-slate-350 hover:shadow-xs transition-all duration-200 h-full">
-                                    <div class="w-10 h-10 rounded-lg bg-slate-50 border border-slate-100 text-slate-500 flex items-center justify-center shrink-0">
-                                        <svg class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                    </div>
-                                    <div class="min-w-0">
-                                        <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 leading-none">{{ $ne ? 'गन्तव्य स्थान / कोठा / काउन्टर' : 'Target Destination / Counter' }}</p>
-                                        <p class="mt-1.5 text-sm font-semibold text-slate-900 truncate tracking-tight">{{ $ne ? $step->location_ne : $step->location_en }}</p>
-                                    </div>
-                                </div>
-
-                                <div class="rounded-xl border border-slate-200 bg-white p-4.5 shadow-2xs hover:border-slate-350 hover:shadow-xs transition-all duration-200 h-full">
-                                    <p class="text-[10px] font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1.5 mb-2">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
-                                        {{ $ne ? 'कार्यविधि निर्देशन' : 'Operational Instructions' }}
-                                    </p>
-                                    <p class="text-xs sm:text-sm leading-relaxed text-slate-600 font-normal">
-                                        {{ $ne ? $step->instruction_ne : $step->instruction_en }}
-                                    </p>
-                                </div>
-                            </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+                    
+                    <div class="group rounded-xl border border-slate-200 bg-white p-5 flex items-start gap-4 shadow-xs hover:border-slate-350 hover:shadow-sm transition-all duration-200 h-full">
+                        <div class="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 text-slate-500 flex items-center justify-center shrink-0 group-hover:bg-blue-50 group-hover:text-blue-600 group-hover:border-blue-100 transition-colors duration-200">
+                            <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
                         </div>
+                        <div class="min-w-0 flex-1 pt-0.5">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 leading-none">
+                                {{ $ne ? 'गन्तव्य स्थान / कोठा / काउन्टर' : 'Target Destination / Counter' }}
+                            </p>
+                            <p class="mt-2 text-sm sm:text-base font-semibold text-slate-900 tracking-tight break-words">
+                                {{ $ne ? $step->location_ne : $step->location_en }}
+                            </p>
+                        </div>
+                    </div>
 
-                    </article>
-                @endforeach
+                    <div class="group rounded-xl border border-slate-200 bg-white p-5 flex items-start gap-4 shadow-xs hover:border-slate-350 hover:shadow-sm transition-all duration-200 h-full">
+                        <div class="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 text-slate-500 flex items-center justify-center shrink-0 group-hover:bg-blue-50 group-hover:text-blue-600 group-hover:border-blue-100 transition-colors duration-200">
+                            <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <div class="min-w-0 flex-1 pt-0.5">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-blue-600 leading-none">
+                                {{ $ne ? 'कार्यविधि निर्देशन' : 'Operational Instructions' }}
+                            </p>
+                            <p class="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 font-normal break-words">
+                                {{ $ne ? $step->instruction_ne : $step->instruction_en }}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
+        </article>
+    @endforeach
+</div>
             <footer class="mt-10 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <button type="button" id="back-step" class="rounded-lg border border-slate-200 bg-white hover:bg-slate-50 px-4 py-2 w-full sm:w-auto text-xs font-semibold text-slate-600 transition-all cursor-pointer shadow-2xs flex items-center justify-center gap-2">
                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
