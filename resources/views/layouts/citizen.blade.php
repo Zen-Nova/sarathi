@@ -150,32 +150,25 @@
         </main>
 
         <footer id="contact" class="mt-8 bg-white border-t border-slate-200 py-8 text-center text-xs text-slate-500">
-            <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6 text-left border-b border-slate-100 pb-6">
-                <div>
+            <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6 text-center sm:text-left border-b border-slate-100 pb-6">
+                <div class="flex flex-col items-center sm:items-start">
                     <h4 class="font-bold text-slate-900 mb-2">{{ $ne ? 'सम्पर्क ठेगाना' : 'Office Address' }}</h4>
                     <p class="text-slate-600 leading-relaxed">{{ $ne ? 'राहदानी विभाग, त्रिपुरेश्वर, काठमाडौं, नेपाल' : 'Department of Passports, Tripureshwor, Kathmandu, Nepal' }}</p>
                 </div>
-                <div>
+                <div class="flex flex-col items-center sm:items-start">
                     <h4 class="font-bold text-slate-900 mb-2">{{ $ne ? 'सम्पर्क विवरण' : 'Contact Details' }}</h4>
                     <p class="text-slate-600">📞 {{ $ne ? 'फोन: +९७७-१-४२६३६१९' : 'Phone: +977-1-4263619' }}</p>
                     <p class="text-slate-600 mt-1">✉️ {{ $ne ? 'इमेल: info@nepalpassport.gov.np' : 'Email: info@nepalpassport.gov.np' }}</p>
                 </div>
-                <div>
+                <div class="flex flex-col items-center sm:items-start">
                     <h4 class="font-bold text-slate-900 mb-2">{{ $ne ? 'सहायता केन्द्र' : 'Support Desk' }}</h4>
                     <p class="text-slate-600 leading-relaxed">{{ $ne ? 'सवारी दर्ता तथा राहदानी सहजीकरण कक्ष, काउन्टर नं. १' : 'Vehicle registration and Passport guidance booth, Counter 1.' }}</p>
                 </div>
             </div>
-            <p class="font-black uppercase tracking-widest text-slate-400">{{ $nav['app'] }} · Digital Nepal Framework Project</p>
-            <p class="mt-2"><span class="text-red-600 font-bold">नेपाल सरकार</span> · Practical Citizen Accountability & Real-Time Redirection</p>
+            <p class="font-black uppercase tracking-widest text-slate-400 px-4">{{ $nav['app'] }} · Digital Nepal Framework Project</p>
+            <p class="mt-2 px-4"><span class="text-red-600 font-bold">नेपाल सरकार</span> · Practical Citizen Accountability & Real-Time Redirection</p>
             <p class="mt-2 text-[10px] text-slate-400 px-4">This platform simulates QR-based government workflow tracking, service guidance, feedback logs, and citizen accountability dashboards.</p>
         </footer>
-
-        <div class="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-t border-slate-200 p-2 safe-bottom">
-            <div class="grid grid-cols-2 gap-2">
-                <a href="{{ route('workflow.scan') }}" class="tap rounded-xl bg-blue-600 text-white text-xs font-black flex items-center justify-center text-center px-2">{{ $ne ? 'प्रवेश QR' : 'Entry QR' }}</a>
-                <a href="{{ route('portal.checkout') }}" class="tap rounded-xl bg-rose-600 text-white text-xs font-black flex items-center justify-center text-center px-2">{{ $ne ? 'निकास QR' : 'Exit QR' }}</a>
-            </div>
-        </div>
     </div>
 
     <script>

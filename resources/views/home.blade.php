@@ -31,28 +31,27 @@
 
     <!-- Services Dynamic Grid Layout (4 Cards in a single line on desktop) -->
     <main>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
             
             <!-- Card 1: Passport Department -->
-            <div class="group bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-[0_16px_36px_rgba(15,23,42,0.05)] hover:-translate-y-1 hover:border-blue-600 transition-all duration-300 flex flex-col justify-between cursor-pointer">
+            <div class="group bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-sm hover:shadow-[0_16px_36px_rgba(15,23,42,0.05)] hover:-translate-y-1 hover:border-blue-600 transition-all duration-300 flex flex-col justify-between cursor-pointer">
                 <div>
-                    <div class="w-11 h-11 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-lg font-semibold group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-700 transition-all duration-300">
+                    <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-base sm:text-lg font-semibold group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-700 transition-all duration-300">
                          🛂
                     </div>
-                    <h3 class="mt-4 text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
+                    <h3 class="mt-3 sm:mt-4 text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
                         {{ $ne ? 'राहदानी विभाग (e-Passport)' : 'Passport Department' }}
                     </h3>
-                    <p class="mt-2 text-xs sm:text-sm leading-relaxed text-slate-400 group-hover:text-slate-500 transition-colors duration-300 font-medium">
+                    <p class="hidden sm:block mt-1.5 sm:mt-2 text-[11px] sm:text-xs md:text-sm leading-relaxed text-slate-400 group-hover:text-slate-500 transition-colors duration-300 font-medium">
                         {{ $ne ? 'नयाँ राहदानी आवेदन, नवीकरण, दस्तुर विवरण तथा आवश्यक कागजातहरूको पूर्ण सूची।' : 'Comprehensive workflow guidance for new biometric passport issuance, fees, and checklists.' }}
                     </p>
                 </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col gap-3">
-                    <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        {{ $ne ? 'प्रवेश क्यूआर उपलब्ध' : 'Entry QR Integrated' }}
-                    </span>
-                    <a href="{{ route('workflow.scan', ['service' => 'passport']) }}" class="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-slate-900 group-hover:bg-blue-600 text-white font-bold text-xs transition-all duration-300 shadow-sm">
-                        <span>{{ $ne ? 'अगाडि बढ्नुहोस्' : 'Proceed' }}</span>
+                <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-100 grid grid-cols-2 gap-2">
+                    <a href="{{ route('portal.document-checklist', ['service' => 'passport']) }}" class="inline-flex items-center justify-center gap-1 py-2 rounded-lg sm:rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[10px] sm:text-xs transition-all duration-300 shadow-sm border border-slate-200">
+                        <span>{{ $ne ? 'कागजात सूची' : 'Details' }}</span>
+                    </a>
+                    <a href="{{ route('portal.select-service') }}" class="inline-flex items-center justify-center gap-1.5 py-2 rounded-lg sm:rounded-xl bg-slate-900 group-hover:bg-blue-600 text-white font-bold text-[10px] sm:text-xs transition-all duration-300 shadow-sm">
+                        <span>{{ $ne ? 'सुरु गर्नुहोस्' : 'Proceed' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
@@ -61,25 +60,24 @@
             </div>
 
             <!-- Card 2: District Administration -->
-            <div class="group bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-[0_16px_36px_rgba(15,23,42,0.05)] hover:-translate-y-1 hover:border-blue-600 transition-all duration-300 flex flex-col justify-between cursor-pointer">
+            <div class="group bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-sm hover:shadow-[0_16px_36px_rgba(15,23,42,0.05)] hover:-translate-y-1 hover:border-blue-600 transition-all duration-300 flex flex-col justify-between cursor-pointer">
                 <div>
-                    <div class="w-11 h-11 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-lg font-semibold group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-700 transition-all duration-300">
+                    <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-base sm:text-lg font-semibold group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-700 transition-all duration-300">
                         📜
                     </div>
-                    <h3 class="mt-4 text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
+                    <h3 class="mt-3 sm:mt-4 text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
                         {{ $ne ? 'जिल्ला प्रशासन (नागरिकता)' : 'District Administration' }}
                     </h3>
-                    <p class="mt-2 text-xs sm:text-sm leading-relaxed text-slate-400 group-hover:text-slate-500 transition-colors duration-300 font-medium">
+                    <p class="hidden sm:block mt-1.5 sm:mt-2 text-[11px] sm:text-xs md:text-sm leading-relaxed text-slate-400 group-hover:text-slate-500 transition-colors duration-300 font-medium">
                         {{ $ne ? 'नयाँ नागरिकता प्रमाणपत्र प्रमाणपत्र प्राप्ति, प्रतिलिपि वा आधिकारिक विवरण सच्याउने प्रक्रिया।' : 'Detailed process routing for acquiring new citizenship documentation, duplicates, or updates.' }}
                     </p>
                 </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col gap-3">
-                    <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        {{ $ne ? 'प्रवेश क्यूआर उपलब्ध' : 'Entry QR Integrated' }}
-                    </span>
-                    <a href="{{ route('workflow.scan', ['service' => 'citizenship']) }}" class="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-slate-900 group-hover:bg-blue-600 text-white font-bold text-xs transition-all duration-300 shadow-sm">
-                        <span>{{ $ne ? 'अगाडि बढ्नुहोस्' : 'Proceed' }}</span>
+                <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-100 grid grid-cols-2 gap-2">
+                    <a href="{{ route('portal.document-checklist', ['service' => 'citizenship']) }}" class="inline-flex items-center justify-center gap-1 py-2 rounded-lg sm:rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[10px] sm:text-xs transition-all duration-300 shadow-sm border border-slate-200">
+                        <span>{{ $ne ? 'कागजात सूची' : 'Details' }}</span>
+                    </a>
+                    <a href="{{ route('portal.select-service') }}" class="inline-flex items-center justify-center gap-1.5 py-2 rounded-lg sm:rounded-xl bg-slate-900 group-hover:bg-blue-600 text-white font-bold text-[10px] sm:text-xs transition-all duration-300 shadow-sm">
+                        <span>{{ $ne ? 'सुरु गर्नुहोस्' : 'Proceed' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
@@ -88,25 +86,24 @@
             </div>
 
             <!-- Card 3: National ID -->
-            <div class="group bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-[0_16px_36px_rgba(15,23,42,0.05)] hover:-translate-y-1 hover:border-blue-600 transition-all duration-300 flex flex-col justify-between cursor-pointer">
+            <div class="group bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-sm hover:shadow-[0_16px_36px_rgba(15,23,42,0.05)] hover:-translate-y-1 hover:border-blue-600 transition-all duration-300 flex flex-col justify-between cursor-pointer">
                 <div>
-                    <div class="w-11 h-11 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-lg font-semibold group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-700 transition-all duration-300">
+                    <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-base sm:text-lg font-semibold group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-700 transition-all duration-300">
                         🪪
                     </div>
-                    <h3 class="mt-4 text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
+                    <h3 class="mt-3 sm:mt-4 text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
                         {{ $ne ? 'राष्ट्रिय परिचयपत्र (NID)' : 'National ID & Registration' }}
                     </h3>
-                    <p class="mt-2 text-xs sm:text-sm leading-relaxed text-slate-400 group-hover:text-slate-500 transition-colors duration-300 font-medium">
+                    <p class="hidden sm:block mt-1.5 sm:mt-2 text-[11px] sm:text-xs md:text-sm leading-relaxed text-slate-400 group-hover:text-slate-500 transition-colors duration-300 font-medium">
                         {{ $ne ? 'राष्ट्रिय परिचयपत्रको अनलाइन दर्ता फारम, जैविक (Biometric) विवरण संकलन केन्द्रहरू र वितरणको अवस्था।' : 'Online registration workflows, operational biometric collection desk data, and status tracking.' }}
                     </p>
                 </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col gap-3">
-                    <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        {{ $ne ? 'प्रवेश क्यूआर उपलब्ध' : 'Entry QR Integrated' }}
-                    </span>
-                    <a href="{{ route('workflow.scan', ['service' => 'nid']) }}" class="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-slate-900 group-hover:bg-blue-600 text-white font-bold text-xs transition-all duration-300 shadow-sm">
-                        <span>{{ $ne ? 'अगाडि बढ्नुहोस्' : 'Proceed' }}</span>
+                <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-100 grid grid-cols-2 gap-2">
+                    <a href="{{ route('portal.document-checklist', ['service' => 'nid']) }}" class="inline-flex items-center justify-center gap-1 py-2 rounded-lg sm:rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[10px] sm:text-xs transition-all duration-300 shadow-sm border border-slate-200">
+                        <span>{{ $ne ? 'कागजात सूची' : 'Details' }}</span>
+                    </a>
+                    <a href="{{ route('portal.select-service') }}" class="inline-flex items-center justify-center gap-1.5 py-2 rounded-lg sm:rounded-xl bg-slate-900 group-hover:bg-blue-600 text-white font-bold text-[10px] sm:text-xs transition-all duration-300 shadow-sm">
+                        <span>{{ $ne ? 'सुरु गर्नुहोस्' : 'Proceed' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
@@ -115,25 +112,24 @@
             </div>
 
             <!-- Card 4: Driving License -->
-            <div class="group bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-[0_16px_36px_rgba(15,23,42,0.05)] hover:-translate-y-1 hover:border-blue-600 transition-all duration-300 flex flex-col justify-between cursor-pointer">
+            <div class="group bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-sm hover:shadow-[0_16px_36px_rgba(15,23,42,0.05)] hover:-translate-y-1 hover:border-blue-600 transition-all duration-300 flex flex-col justify-between cursor-pointer">
                 <div>
-                    <div class="w-11 h-11 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-lg font-semibold group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-700 transition-all duration-300">
+                    <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-slate-50 border border-slate-200 text-slate-700 flex items-center justify-center text-base sm:text-lg font-semibold group-hover:bg-blue-50 group-hover:border-blue-100 group-hover:text-blue-700 transition-all duration-300">
                         🚗
                     </div>
-                    <h3 class="mt-4 text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
+                    <h3 class="mt-3 sm:mt-4 text-sm sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-300 tracking-tight">
                         {{ $ne ? 'यातायात व्यवस्था (लाइसेन्स)' : 'Transport Management' }}
                     </h3>
-                    <p class="mt-2 text-xs sm:text-sm leading-relaxed text-slate-400 group-hover:text-slate-500 transition-colors duration-300 font-medium">
+                    <p class="hidden sm:block mt-1.5 sm:mt-2 text-[11px] sm:text-xs md:text-sm leading-relaxed text-slate-400 group-hover:text-slate-500 transition-colors duration-300 font-medium">
                         {{ $ne ? 'नयाँ सवारी चालक अनुमति पत्र आवेदन, वर्ग थप, लिखित तथा प्रयोगात्मक परीक्षा निर्देशिका।' : 'New driving license schedules, biometric workflows, category additions, and renewal systems.' }}
                     </p>
                 </div>
-                <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col gap-3">
-                    <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        {{ $ne ? 'प्रवेश क्यूआर उपलब्ध' : 'Entry QR Integrated' }}
-                    </span>
-                    <a href="{{ route('workflow.scan', ['service' => 'license']) }}" class="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-slate-900 group-hover:bg-blue-600 text-white font-bold text-xs transition-all duration-300 shadow-sm">
-                        <span>{{ $ne ? 'अगाडि बढ्नुहोस्' : 'Proceed' }}</span>
+                <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-100 grid grid-cols-2 gap-2">
+                    <a href="{{ route('portal.document-checklist', ['service' => 'license']) }}" class="inline-flex items-center justify-center gap-1 py-2 rounded-lg sm:rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[10px] sm:text-xs transition-all duration-300 shadow-sm border border-slate-200">
+                        <span>{{ $ne ? 'कागजात सूची' : 'Details' }}</span>
+                    </a>
+                    <a href="{{ route('portal.select-service') }}" class="inline-flex items-center justify-center gap-1.5 py-2 rounded-lg sm:rounded-xl bg-slate-900 group-hover:bg-blue-600 text-white font-bold text-[10px] sm:text-xs transition-all duration-300 shadow-sm">
+                        <span>{{ $ne ? 'सुरु गर्नुहोस्' : 'Proceed' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
@@ -195,7 +191,7 @@
 
         </div>
         
-        <p class="mt-4 text-center text-[11px] text-slate-400 font-semibold">
+        <p class="mt-4 text-center text-[11px] text-slate-400 font-semibold px-4">
             🔒 {{ $ne ? 'कुनै लगइन आवश्यक छैन • नागरिक सहजताका लागि सुरक्षित सेवा' : 'No login required • Secure routing engineered for public utility' }}
         </p>
     </footer>
