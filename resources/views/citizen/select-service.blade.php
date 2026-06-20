@@ -15,7 +15,7 @@
         <div class="p-6 sm:p-12">
             <header class="mb-10">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-4">
-                   {{ $ne ? 'राहदानी विभाग' : 'Department of Passports' }}
+                   {{ $department ? ($ne ? $department->name_np : $department->name_en) : ($ne ? 'राहदानी विभाग' : 'Department of Passports') }}
                 </div>
                 
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">

@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             ServiceSeeder::class,
             ServiceStepSeeder::class,
+            RequiredDocumentSeeder::class,
             VisitSeeder::class,
             UserSeeder::class,
         ]);
