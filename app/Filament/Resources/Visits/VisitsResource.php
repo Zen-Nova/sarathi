@@ -22,7 +22,13 @@ class VisitsResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'visit';
+    protected static ?string $navigationLabel = 'Visits';
+
+    protected static ?string $modelLabel = 'Visit';
+
+    protected static ?string $pluralModelLabel = 'Visits';
+
+    protected static ?string $recordTitleAttribute = 'tracking_token';
 
     public static function form(Schema $schema): Schema
     {
@@ -32,6 +38,21 @@ class VisitsResource extends Resource
     public static function table(Table $table): Table
     {
         return VisitsTable::configure($table);
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        $count = Visit::query()
+            ->where('failure_reason', 'bribe_request')
+            ->whereNull('alert_acknowledged_at')
+            ->count();
+
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'danger';
     }
 
     public static function getRelations(): array
