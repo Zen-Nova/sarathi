@@ -24,11 +24,11 @@ class Visit extends Model
         'citizen_phone',
     ];
 
-    // Cast attributes to native Carbon dates automatically
     protected $casts = [
         'entered_at' => 'datetime',
         'exited_at' => 'datetime',
         'is_completed' => 'boolean',
+        'rating' => 'integer',
     ];
 
     public function department(): BelongsTo
@@ -39,5 +39,20 @@ class Visit extends Model
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
+    }
+
+    public function getFailureReasonLabelAttribute(): ?string
+    {
+        if (! $this->failure_reason) {
+            return null;
+        }
+
+        $locale = session('locale', 'ne');
+
+        $reasons = config('visits.failure_reasons', []);
+
+        return $reasons[$this->failure_reason][$locale]
+            ?? $reasons[$this->failure_reason]['en']
+            ?? $this->failure_reason;
     }
 }

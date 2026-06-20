@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Visit;
 use App\Models\Service;
+use App\Models\Visit;
 use Illuminate\Http\Request;
-use Illuminate\Support5\Str;
+use Illuminate\Support\Str;
 
 class CitizenWorkflowController extends Controller
 {
@@ -17,15 +17,22 @@ class CitizenWorkflowController extends Controller
     {
         $token = $request->query('token');
 
-        // If the token already exists, check if they completed their steps or are checking out
-        if ($token && $visit = Visit::where('tracking_token', $token)->first()) {
-            if ($visit->is_completed || $visit->failure_reason) {
-                return redirect()->route('workflow.thanks', ['token' => $token]);
+        if ($token) {
+            $visit = Visit::where('tracking_token', $token)->first();
+
+            if ($visit) {
+                if ($visit->exited_at) {
+                    return redirect()->route('workflow.thanks', ['token' => $token]);
+                }
+
+                if ($visit->service_id) {
+                    return redirect()->route('workflow.checkout', ['token' => $token]);
+                }
+
+                return redirect()->route('workflow.select-service', ['token' => $token]);
             }
-            return redirect()->route('workflow.checkout', ['token' => $token]);
         }
 
-        // New citizen arrival workflow initiation
         $newToken = 'TRK-' . strtoupper(Str::random(12));
 
         return redirect()->route('workflow.select-service', ['token' => $newToken]);
@@ -33,33 +40,52 @@ class CitizenWorkflowController extends Controller
 
     public function showServiceSelection($token)
     {
-        $services = Service::where('is_active', true)->with('department')->get();
+        $services = Service::where('is_active', true)
+            ->with('department')
+            ->get();
+
         return view('citizen.select-service', compact('token', 'services'));
     }
 
     public function startService(Request $request, $token)
     {
-        $request->validate([
+        $validated = $request->validate([
             'service_id' => 'required|exists:services,id',
         ]);
 
-        $service = Service::findOrFail($request->service_id);
+        $service = Service::findOrFail($validated['service_id']);
 
-        // Store active tracker sequence in database visits registry
-        Visit::create([
+        $visit = Visit::firstOrNew([
             'tracking_token' => $token,
-            'department_id'  => $service->department_id,
-            'service_id'     => $service->id,
-            'entered_at'     => now(),
-            'is_completed'   => false,
         ]);
+
+        if (! $visit->exists) {
+            $visit->entered_at = now();
+        }
+
+        $visit->fill([
+            'department_id' => $service->department_id,
+            'service_id' => $service->id,
+            'is_completed' => null,
+            'rating' => null,
+            'failure_reason' => null,
+            'citizen_comments' => null,
+            'citizen_name' => null,
+            'citizen_phone' => null,
+            'exited_at' => null,
+        ]);
+
+        $visit->save();
 
         return redirect()->route('workflow.roadmap', ['token' => $token]);
     }
 
     public function showRoadmap($token)
     {
-        $visit = Visit::where('tracking_token', $token)->with('service.steps')->firstOrFail();
+        $visit = Visit::where('tracking_token', $token)
+            ->with(['service.steps', 'service.department'])
+            ->firstOrFail();
+
         $service = $visit->service;
 
         return view('citizen.roadmap', compact('token', 'visit', 'service'));
@@ -67,7 +93,10 @@ class CitizenWorkflowController extends Controller
 
     public function showCheckout($token)
     {
-        $visit = Visit::where('tracking_token', $token)->with('service')->firstOrFail();
+        $visit = Visit::where('tracking_token', $token)
+            ->with(['service', 'department'])
+            ->firstOrFail();
+
         return view('citizen.checkout', compact('token', 'visit'));
     }
 
@@ -75,25 +104,29 @@ class CitizenWorkflowController extends Controller
     {
         $visit = Visit::where('tracking_token', $token)->firstOrFail();
 
-        $request->validate([
-            'is_completed'     => 'required|boolean',
-            'rating'           => 'nullable|integer|min:1|max:5',
-            'failure_reason'   => 'nullable|string',
-            'citizen_comments' => 'nullable|string',
-            'citizen_name'     => 'nullable|string|max:255',
-            'citizen_phone'    => 'nullable|string|max:20',
+        $validReasons = implode(',', array_keys(config('visits.failure_reasons')));
+
+        $validated = $request->validate([
+            'is_completed' => 'required|boolean',
+            'rating' => 'required_if:is_completed,1|nullable|integer|min:1|max:5',
+            'failure_reason' => 'required_if:is_completed,0|nullable|string|in:' . $validReasons,
+            'citizen_comments' => 'nullable|string|max:2000',
+            'citizen_name' => 'nullable|string|max:255',
+            'citizen_phone' => 'nullable|string|max:20',
+            'is_anonymous' => 'nullable|boolean',
         ]);
 
-        $isCompleted = (bool) $request->is_completed;
+        $isCompleted = $request->boolean('is_completed');
+        $isAnonymous = $request->boolean('is_anonymous');
 
         $visit->update([
-            'is_completed'     => $isCompleted,
-            'rating'           => $isCompleted ? $request->rating : 1, // Auto lock low rating for incomplete work
-            'failure_reason'   => $isCompleted ? null : $request->failure_reason,
-            'citizen_comments' => $request->citizen_comments,
-            'citizen_name'     => $request->has('is_anonymous') ? null : $request->citizen_name,
-            'citizen_phone'    => $request->has('is_anonymous') ? null : $request->citizen_phone,
-            'exited_at'        => now(),
+            'is_completed' => $isCompleted,
+            'rating' => $isCompleted ? (int) $validated['rating'] : null,
+            'failure_reason' => $isCompleted ? null : $validated['failure_reason'],
+            'citizen_comments' => $validated['citizen_comments'] ?? null,
+            'citizen_name' => $isAnonymous ? null : ($validated['citizen_name'] ?? null),
+            'citizen_phone' => $isAnonymous ? null : ($validated['citizen_phone'] ?? null),
+            'exited_at' => now(),
         ]);
 
         return redirect()->route('workflow.thanks', ['token' => $token]);

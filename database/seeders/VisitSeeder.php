@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Service;
 use App\Models\Visit;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class VisitSeeder extends Seeder
 {
@@ -17,9 +18,9 @@ class VisitSeeder extends Seeder
         }
 
         foreach ($services as $service) {
-            // 1. Seed a successful, completed anonymous visit
+            // Successful completed visit
             Visit::create([
-                'tracking_token' => 'TRK-' . strtoupper(uniqid()),
+                'tracking_token' => 'TRK-' . strtoupper(Str::random(12)),
                 'department_id' => $service->department_id,
                 'service_id' => $service->id,
                 'citizen_name' => null,
@@ -32,17 +33,17 @@ class VisitSeeder extends Seeder
                 'exited_at' => now()->subMinutes(15),
             ]);
 
-            // 2. Seed an incomplete/failed visit containing an optional citizen identifier card
+            // Failed/incomplete visit
             Visit::create([
-                'tracking_token' => 'TRK-' . strtoupper(uniqid()),
+                'tracking_token' => 'TRK-' . strtoupper(Str::random(12)),
                 'department_id' => $service->department_id,
                 'service_id' => $service->id,
                 'citizen_name' => 'Ram Bahadur',
                 'citizen_phone' => '+9779851000000',
                 'citizen_comments' => 'The line was too long and system went offline.',
-                'failure_reason' => 'Server authentication system crashed mid-session.',
+                'failure_reason' => 'server_down',
                 'is_completed' => false,
-                'rating' => 2,
+                'rating' => null,
                 'entered_at' => now()->subHours(2),
                 'exited_at' => now()->subHours(1),
             ]);

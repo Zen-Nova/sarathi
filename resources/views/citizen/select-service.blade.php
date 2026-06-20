@@ -3,6 +3,9 @@
 @php
     $locale = session('locale', 'ne');
     $ne = $locale === 'ne';
+
+    $department = $department ?? null;
+    $token = $token ?? null;
 @endphp
 
 @section('title', $ne ? 'सेवा चयन गर्नुहोस्' : 'Select Service')
@@ -15,7 +18,7 @@
         <div class="p-6 sm:p-12">
             <header class="mb-10">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-4">
-                   {{ $department ? ($ne ? $department->name_np : $department->name_en) : ($ne ? 'राहदानी विभाग' : 'Department of Passports') }}
+                    {{ $department ? ($ne ? $department->name_np : $department->name_en) : ($ne ? 'सेवा सूची' : 'Service List') }}
                 </div>
                 
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
@@ -28,29 +31,35 @@
             </header>
 
             <div class="space-y-3.5">
-                @foreach($services as $service)
-                    <form method="POST" action="{{ route('portal.pick-service') }}" class="m-0 group">
+                @forelse($services as $service)
+                    <form 
+                        method="POST" 
+                        action="{{ $token ? route('workflow.start-service', ['token' => $token]) : route('portal.pick-service') }}" 
+                        class="m-0 group"
+                    >
                         @csrf
+
                         <input type="hidden" name="service_id" value="{{ $service->id }}">
                         
                         <button type="submit" class="w-full text-left rounded-2xl border border-slate-100 bg-white p-5 transition-all duration-300 ease-in-out flex items-center justify-between gap-6 hover:border-blue-600 hover:shadow-[0_12px_30px_rgba(37,99,235,0.06)] hover:-translate-y-0.5 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-600/10">
                             
                             <div class="min-w-0 flex-1">
                                 <span class="block text-base sm:text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-200 tracking-tight">
-                                    {{ $ne ? $service->name_ne : $service->name_en }}
+                                    {{ $ne ? ($service->name_ne ?? $service->name_np ?? $service->name_en) : $service->name_en }}
                                 </span>
                                 
                                 <div class="flex flex-wrap items-center gap-2 mt-2">
                                     <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-50 border border-slate-200/60 text-[11px] font-semibold text-slate-500 group-hover:bg-blue-50/50 group-hover:text-blue-700 group-hover:border-blue-100 transition-all duration-200">
-                                         {{ $ne ? $service->est_ne : $service->est_en }}
+                                        {{ $ne ? ($service->est_ne ?? $service->est_en) : $service->est_en }}
                                     </span>
+
                                     <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-50 border border-slate-200/60 text-[11px] font-semibold text-slate-500 group-hover:bg-blue-50/50 group-hover:text-blue-700 group-hover:border-blue-100 transition-all duration-200">
-                                         {{ count($service->steps) }} {{ $ne ? 'चरण' : 'steps' }}
+                                        {{ $service->steps->count() }} {{ $ne ? 'चरण' : 'steps' }}
                                     </span>
                                 </div>
 
                                 <span class="block mt-3 text-xs sm:text-sm text-slate-400 group-hover:text-slate-500 transition-colors duration-200 leading-relaxed font-normal">
-                                    {{ $ne ? $service->desc_ne : $service->desc_en }}
+                                    {{ $ne ? ($service->desc_ne ?? $service->desc_en) : $service->desc_en }}
                                 </span>
                             </div>
                             
@@ -62,7 +71,13 @@
                             
                         </button>
                     </form>
-                @endforeach
+                @empty
+                    <div class="rounded-2xl border border-slate-100 bg-slate-50 p-6 text-center">
+                        <p class="text-sm font-semibold text-slate-600">
+                            {{ $ne ? 'हाल कुनै सेवा उपलब्ध छैन।' : 'No services are currently available.' }}
+                        </p>
+                    </div>
+                @endforelse
             </div>
 
             <footer class="mt-10 pt-6 border-t border-slate-100 flex items-center justify-between">
@@ -70,6 +85,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                     </svg>
+
                     <span>{{ $ne ? 'पछि फर्कनुहोस्' : 'Go Back' }}</span>
                 </a>
                 

@@ -10,28 +10,38 @@ return new class extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
-            // Secure unique token to identify this specific tracking session via URL/Cookie
+
+            // Unique token for each citizen visit/session
             $table->string('tracking_token')->unique();
-            
-            $table->foreignId('department_id')->constrained()->cascadeOnDelete();
-            // Nullable initially because citizen chooses service *after* scanning the entry QR code
-            $table->foreignId('service_id')->nullable()->constrained()->nullOnDelete();
-            
-            // Timestamps for workflow duration mapping
+
+            // Selected department and service
+            $table->foreignId('department_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->foreignId('service_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
+
+            // Visit timing
             $table->timestamp('entered_at');
             $table->timestamp('exited_at')->nullable();
-            
-            // Phase 2 Feedback Fields
-            $table->boolean('is_completed')->nullable(); // true = Task Done, false = Failed
-            $table->integer('rating')->nullable();       // 1 to 5 star metric if completed
-            
-            $table->string('citizen_name')->nullable();
-            $table->string('citizen_phone')->nullable();
 
-            // If task failed, store predefined structural categories or complaints
-            $table->string('failure_reason')->nullable(); // e.g., 'server_down', 'missing_documents'
-            $table->text('citizen_comments')->nullable(); // Optional text narrative field
-            
+            // Feedback result
+            $table->boolean('is_completed')->nullable();
+            $table->unsignedTinyInteger('rating')->nullable();
+
+            // Optional citizen identity
+            $table->string('citizen_name')->nullable();
+            $table->string('citizen_phone', 20)->nullable();
+
+            // Failure reason stores key like: server_down, missing_doc, long_queue
+            $table->string('failure_reason', 50)->nullable();
+
+            // Optional feedback/comment
+            $table->text('citizen_comments')->nullable();
+
             $table->timestamps();
         });
     }
