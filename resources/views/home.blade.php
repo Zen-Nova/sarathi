@@ -63,7 +63,7 @@
                         {{ $ne ? 'जिल्ला प्रशासन (नागरिकता)' : 'District Administration' }}
                     </h3>
                     <p class="hidden sm:block mt-2 text-xs md:text-sm leading-relaxed text-slate-500 font-medium">
-                        {{ $ne ? 'नयाँ नागरिकता प्रमाणपत्र प्रमाणपत्र प्राप्ति, प्रतिलिपि वा आधिकारिक विवरण सच्याउने प्रक्रिया।' : 'Detailed process routing for acquiring new citizenship documentation, duplicates, or updates.' }}
+                        {{ $ne ? 'नयाँ नागरिकता प्रमाणपत्र प्राप्ति, प्रतिलिपि वा आधिकारिक विवरण सच्याउने प्रक्रिया।' : 'Detailed process routing for acquiring new citizenship documentation, duplicates, or updates.' }}
                     </p>
                 </div>
                 <div class="mt-5 pt-4 border-t border-slate-100">
