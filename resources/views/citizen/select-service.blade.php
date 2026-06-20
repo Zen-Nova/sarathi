@@ -29,7 +29,7 @@
 
             <div class="space-y-3.5">
                 @foreach($services as $service)
-                    <form method="POST" action="{{ route('start-tracking') }}" class="m-0 group">
+                    <form method="POST" action="{{ route('portal.pick-service') }}" class="m-0 group">
                         @csrf
                         <input type="hidden" name="service_id" value="{{ $service->id }}">
                         

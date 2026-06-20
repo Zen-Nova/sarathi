@@ -46,7 +46,7 @@
                     </p>
                 </div>
                 <div class="mt-5 pt-4 border-t border-slate-100">
-                    <a href="{{ route('portal.document-checklist', ['service' => 'passport']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
+                    <a href="{{ route('portal.select-service', ['department' => 'passport']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
                         <span>{{ $ne ? 'कागजात र विवरण' : 'View Details' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -68,7 +68,7 @@
                     </p>
                 </div>
                 <div class="mt-5 pt-4 border-t border-slate-100">
-                    <a href="{{ route('portal.document-checklist', ['service' => 'citizenship']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
+                    <a href="{{ route('portal.select-service', ['department' => 'citizenship']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
                         <span>{{ $ne ? 'कागजात र विवरण' : 'View Details' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -89,7 +89,7 @@
                     </p>
                 </div>
                 <div class="mt-5 pt-4 border-t border-slate-100">
-                    <a href="{{ route('portal.document-checklist', ['service' => 'nid']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
+                    <a href="{{ route('portal.select-service', ['department' => 'nid']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
                         <span>{{ $ne ? 'कागजात र विवरण' : 'View Details' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -110,7 +110,7 @@
                     </p>
                 </div>
                 <div class="mt-5 pt-4 border-t border-slate-100">
-                    <a href="{{ route('portal.document-checklist', ['service' => 'license']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
+                    <a href="{{ route('portal.select-service', ['department' => 'license']) }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 group-hover:bg-blue-600 text-slate-700 group-hover:text-white font-bold text-xs border border-slate-200 group-hover:border-blue-600 transition-all duration-300 shadow-sm">
                         <span>{{ $ne ? 'कागजात र विवरण' : 'View Details' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
