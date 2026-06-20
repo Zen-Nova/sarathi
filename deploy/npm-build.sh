@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-cd /home/sarathi.techzenova.com
+cd sarathi.techzenova.com
 
 export RAYON_NUM_THREADS=1
 export GOMAXPROCS=1
