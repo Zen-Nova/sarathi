@@ -88,29 +88,35 @@
         </div>
     </section>
 
-    <section id="exit-prompt" class="hidden bg-white rounded-[2rem] p-6 sm:p-12 text-center shadow-[0_20px_50px_rgba(15,23,42,0.04)] relative overflow-hidden transition-all duration-300">
-        <div class="absolute top-0 left-0 right-0 h-1.5 flex">
-            <div class="w-1/2 bg-red-600"></div>
-            <div class="w-1/2 bg-blue-700"></div>
-        </div>
-        
-        <div class="mx-auto w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center text-2xl mb-5 shadow-sm">
-            ✓
-        </div>
-        
-        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            {{ $ne ? 'बधाई छ! सबै प्रक्रियाहरू पूरा भए।' : 'Success! All Counter Sequences Completed' }}
-        </h2>
-        <p class="mt-3 text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
-            {{ $ne ? 'कार्यालय भित्रका सम्पूर्ण चरण सफलतापूर्वक सम्पन्न भएका छन्। अब निकास गेटमा पुगेर QR कोड स्क्यान गरी आफ्नो अमूल्य प्रतिक्रिया दर्ता गर्नुहोस्।' : 'You have successfully routed through all processing windows. Please scan the QR code located near the terminal gate to submit your feedback.' }}
-        </p>
-        
-        <div class="mt-8 pt-6 border-t border-slate-100 max-w-sm mx-auto">
-            <a href="{{ route('portal.checkout') }}" class="w-full inline-flex items-center justify-center rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider px-5 py-3.5 transition-all duration-300 shadow-md shadow-blue-600/10 cursor-pointer hover:-translate-y-0.5">
-                {{ $ne ? 'निकास विन्दुको क्यूआर स्क्यान र प्रतिक्रिया' : 'Scan Exit QR & Provide Feedback' }}
-            </a>
-        </div>
-    </section>
+   <section id="exit-prompt" class="hidden bg-white rounded-[2rem] border border-slate-100 p-6 sm:p-10 md:p-12 text-center shadow-[0_20px_50px_rgba(15,23,42,0.04)] relative overflow-hidden transition-all duration-300 w-full max-w-2xl mx-auto">
+    <!-- Top Accent Line -->
+    <div class="absolute top-0 left-0 right-0 h-1.5 flex">
+        <div class="w-1/2 bg-red-600"></div>
+        <div class="w-1/2 bg-blue-700"></div>
+    </div>
+    
+    <!-- Success Icon (Scales from 56px to 64px on larger screens) -->
+    <div class="mx-auto w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center text-2xl sm:text-3xl mb-5 sm:mb-6 shadow-sm">
+        ✓
+    </div>
+    
+    <!-- Heading (Scales from text-2xl to text-3xl) -->
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight px-2">
+        {{ $ne ? 'बधाई छ! सबै प्रक्रियाहरू पूरा भए।' : 'Success! All Counter Sequences Completed' }}
+    </h2>
+    
+    <!-- Subtext (Scales from text-sm to text-base, max-width keeps it readable) -->
+    <p class="mt-3 sm:mt-4 text-sm sm:text-base text-slate-500 max-w-md mx-auto leading-relaxed px-2 sm:px-4">
+        {{ $ne ? 'कार्यालय भित्रका सम्पूर्ण चरण सफलतापूर्वक सम्पन्न भएका छन्। अब निकास गेटमा पुगेर QR कोड स्क्यान गरी आफ्नो अमूल्य प्रतिक्रिया दर्ता गर्नुहोस्।' : 'You have successfully routed through all processing windows. Please scan the QR code located near the terminal gate to submit your feedback.' }}
+    </p>
+    
+    <!-- CTA Button Wrapper (Adjusts margins and padding for breathing room) -->
+    <div class="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-slate-100 max-w-[16rem] sm:max-w-sm mx-auto">
+        <a href="{{ route('portal.checkout') }}" class="w-full inline-flex items-center justify-center rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-5 py-3.5 sm:py-4 transition-all duration-300 shadow-md shadow-blue-600/20 cursor-pointer hover:-translate-y-0.5 active:scale-[0.98]">
+            {{ $ne ? 'प्रतिक्रिया' : 'Provide Feedback' }}
+        </a>
+    </div>
+</section>
 </div>
 @endsection
 

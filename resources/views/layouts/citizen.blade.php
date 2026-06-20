@@ -124,7 +124,7 @@
         </main>
 
         <footer id="contact" class="mt-auto bg-white border-t border-slate-100">
-            <div class="max-w-6xl mx-auto px-4 pt-8 pb-6 text-center">
+            <div class="max-w-6xl mx-auto pb-6 text-center">
                 <p class="text-[11px] font-black uppercase tracking-widest text-slate-400">{{ $nav['app'] }} · Digital Nepal Framework</p>
                 <p class="mt-1.5 text-[11px] text-slate-400">
                     <span class="mx-1 text-slate-300">·</span>
