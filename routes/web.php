@@ -261,7 +261,7 @@ Route::get('/document-checklist/{service}', function ($service) use ($services) 
         'passport' => [
             'name_ne' => 'राहदानी (Passport) - कागजात चेकलिस्ट',
             'name_en' => 'Passport - Document Checklist',
-            'icon' => '🛂',
+            'icon' => 'passport.png',
             'bg_gradient' => 'from-blue-600 to-indigo-700',
             'docs' => [
                 [
@@ -314,7 +314,7 @@ Route::get('/document-checklist/{service}', function ($service) use ($services) 
         'citizenship' => [
             'name_ne' => 'जिल्ला प्रशासन (नागरिकता) - कागजात चेकलिस्ट',
             'name_en' => 'District Administration (Citizenship) - Document Checklist',
-            'icon' => '📜',
+            'icon' => 'Admin.png',
             'bg_gradient' => 'from-amber-600 to-red-700',
             'docs' => [
                 [
@@ -367,7 +367,7 @@ Route::get('/document-checklist/{service}', function ($service) use ($services) 
         'nid' => [
             'name_ne' => 'राष्ट्रिय परिचयपत्र (NID) - कागजात चेकलिस्ट',
             'name_en' => 'National ID (NID) - Document Checklist',
-            'icon' => '🪪',
+            'icon' => 'nid.png',
             'bg_gradient' => 'from-emerald-600 to-teal-700',
             'docs' => [
                 [
@@ -413,7 +413,7 @@ Route::get('/document-checklist/{service}', function ($service) use ($services) 
         'license' => [
             'name_ne' => 'यातायात व्यवस्था (लाइसेन्स) - कागजात चेकलिस्ट',
             'name_en' => 'Transport Management (License) - Document Checklist',
-            'icon' => '🚗',
+            'icon' => 'transport.png',
             'bg_gradient' => 'from-slate-700 to-blue-800',
             'docs' => [
                 [

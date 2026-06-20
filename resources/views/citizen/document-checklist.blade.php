@@ -27,37 +27,26 @@
 @endpush
 
 @section('content')
-<div class="max-w-6xl mx-auto px-4 py-4 sm:py-8 selection:bg-blue-600 selection:text-white">
-    
-    <!-- Top Nav Action Row (no-print) -->
-    <div class="flex items-center justify-between mb-6 no-print">
-        <a href="{{ route('portal.home') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition-all duration-200 shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-3.5 h-3.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-            <span>{{ $ne ? 'गृहपृष्ठमा फर्कनुहोस्' : 'Back to Home' }}</span>
-        </a>
-        
-        <button onclick="window.print()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-all duration-200 shadow-sm">
-            <span>🖨️</span>
-            <span>{{ $ne ? 'चेकलिस्ट प्रिन्ट गर्नुहोस्' : 'Print Checklist' }}</span>
-        </button>
-    </div>
+<div class="max-w-6xl mx-auto sm:py-8 selection:bg-blue-600 selection:text-white">
 
     <!-- Hero Service Header Card -->
-    <div class="relative rounded-3xl bg-gradient-to-r {{ $checklist['bg_gradient'] }} p-6 sm:p-8 text-white shadow-xl overflow-hidden mb-8">
+    <div class="relative rounded-3xl bg-[#003B93] p-6 sm:p-8 text-white shadow-xl overflow-hidden mb-8">
         <!-- Accent circles inside banner -->
         <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-white/10 blur-xl"></div>
         <div class="absolute right-12 top-4 w-20 h-20 rounded-full bg-white/10 blur-lg"></div>
         
         <div class="relative flex flex-col sm:flex-row sm:items-center gap-5">
-            <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shrink-0 shadow-inner">
-                {{ $checklist['icon'] }}
-            </div>
+            <!-- <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 shadow-inner overflow-hidden p-2">
+                @if(Str::endsWith($checklist['icon'], ['.png', '.svg']))
+                    <img src="{{ asset('images/' . $checklist['icon']) }}" alt="Icon" class="w-full h-full object-contain">
+                @else
+                    <span class="text-3xl">{{ $checklist['icon'] }}</span>
+                @endif
+            </div> -->
             <div>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] sm:text-xs font-black uppercase tracking-wider">
-                    <span>🏛️</span>
-                    <span>{{ $ne ? 'अधिकारीक कागजात सूची' : 'Official Requirements' }}</span>
+                <span class="inline-flex items-center gap-1.5 py-1 rounded-full  text-[10px] sm:text-xs font-black uppercase tracking-wider">
+                    
+                    {{ $ne ? 'अधिकारीक कागजात सूची' : 'Official Requirements' }}
                 </span>
                 <h1 class="mt-2.5 text-xl sm:text-3xl font-extrabold tracking-tight">
                     {{ $ne ? $checklist['name_ne'] : $checklist['name_en'] }}
@@ -69,15 +58,13 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-start">
-        
-        <!-- Checklist Interactive Elements (Cols 2/3) -->
-        <div class="md:col-span-2 space-y-4">
-            <h2 class="text-base sm:text-lg font-black text-slate-800 tracking-tight mb-2 flex items-center gap-2 px-1">
-                <span>📋</span>
-                <span>{{ $ne ? 'कागजातहरूको सूची' : 'Required Documents' }}</span>
-            </h2>
+    <!-- Checklist Cards Grid Layout (2 by 2 on desktop view) -->
+    <div class="space-y-6">
+        <h2 class="text-base sm:text-lg font-black text-slate-800 tracking-tight flex items-center gap-2 px-1">
+            {{ $ne ? 'कागजातहरूको सूची' : 'Required Documents' }}
+        </h2>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             @foreach($checklist['docs'] as $idx => $doc)
                 <div class="print-card group bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-md transition-all duration-300 flex items-start gap-4 cursor-pointer relative" onclick="toggleCheckbox('doc-{{ $idx }}')">
                     
@@ -108,47 +95,6 @@
                     </div>
                 </div>
             @endforeach
-        </div>
-
-        <!-- Sidebar Guidelines (Col 1) -->
-        <div class="space-y-6">
-            
-            <!-- Progress Tracker Card (no-print) -->
-            <div id="progress-card" class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm no-print">
-                <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider mb-3">
-                    {{ $ne ? 'तपाईंको तयारी स्थिति' : 'Preparation Progress' }}
-                </h3>
-                <div class="flex items-center justify-between mb-2">
-                    <span id="progress-text" class="text-sm font-bold text-slate-700">0%</span>
-                    <span id="progress-count" class="text-xs font-semibold text-slate-400">0 / {{ count($checklist['docs']) }}</span>
-                </div>
-                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="bg-blue-600 h-full w-0 transition-all duration-300"></div>
-                </div>
-            </div>
-
-            <!-- Pre-visit preparation recommendations -->
-            <div class="print-card bg-slate-900 text-white rounded-2xl p-5 shadow-sm relative overflow-hidden">
-                <div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-white/5 blur-lg"></div>
-                
-                <h3 class="text-xs font-black text-white/70 uppercase tracking-wider mb-4 flex items-center gap-1.5">
-                    <span>💡</span>
-                    <span>{{ $ne ? 'महत्त्वपूर्ण निर्देशनहरू' : 'Pre-visit Guidelines' }}</span>
-                </h3>
-                
-                <ul class="space-y-3.5">
-                    @php
-                        $guidelines = $ne ? $checklist['general_guidelines_ne'] : $checklist['general_guidelines_en'];
-                    @endphp
-                    @foreach($guidelines as $guideline)
-                        <li class="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed font-medium">
-                            <span class="text-blue-400 shrink-0 text-sm mt-0.5">✓</span>
-                            <span>{{ $guideline }}</span>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-            
         </div>
     </div>
 

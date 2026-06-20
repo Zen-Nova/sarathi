@@ -63,21 +63,7 @@
                         </div>
                     </a>
 
-                    <!-- Middle: Main Menu Links -->
-                    <div class="hidden md:flex items-center gap-6 lg:gap-8">
-                        <a href="{{ route('portal.select-service') }}" class="text-sm font-black transition-colors {{ request()->routeIs('portal.select-service') || request()->routeIs('workflow.scan') ? 'text-blue-650' : 'text-slate-600 hover:text-blue-650' }}">
-                            {{ $ne ? 'सेवाहरू' : 'Services' }}
-                        </a>
-                        <a href="{{ route('portal.active-guide') }}" class="text-sm font-black transition-colors {{ request()->routeIs('portal.active-guide') ? 'text-blue-650' : 'text-slate-600 hover:text-blue-650' }}">
-                            {{ $ne ? 'भ्रमण ट्र्याक' : 'Track Visit' }}
-                        </a>
-                        <a href="{{ route('portal.checkout') }}" class="text-sm font-black transition-colors {{ request()->routeIs('portal.checkout') ? 'text-blue-650' : 'text-slate-600 hover:text-blue-650' }}">
-                            {{ $ne ? 'प्रतिक्रिया' : 'Feedback Page' }}
-                        </a>
-                        <a href="#contact" class="text-sm font-black text-slate-600 hover:text-blue-650 transition-colors">
-                            {{ $ne ? 'सम्पर्क' : 'Contact Us' }}
-                        </a>
-                    </div>
+
 
                     <!-- Right: Language switch, Register button, Mobile toggle -->
                     <div class="flex items-center gap-3">
@@ -113,18 +99,7 @@
                 <!-- Mobile Menu Dropdown -->
                 <div id="mobile-dropdown-menu" class="hidden md:hidden mt-2 animate-fadeIn">
                     <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-lg flex flex-col gap-2.5">
-                        <a href="{{ route('portal.select-service') }}" class="text-sm font-black px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 hover:text-blue-650 transition-colors {{ request()->routeIs('portal.select-service') ? 'bg-slate-50 text-blue-650' : '' }}">
-                            {{ $ne ? 'सेवाहरू' : 'Services' }}
-                        </a>
-                        <a href="{{ route('portal.active-guide') }}" class="text-sm font-black px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 hover:text-blue-650 transition-colors {{ request()->routeIs('portal.active-guide') ? 'bg-slate-50 text-blue-650' : '' }}">
-                            {{ $ne ? 'भ्रमण ट्र्याक' : 'Track Visit' }}
-                        </a>
-                        <a href="{{ route('portal.checkout') }}" class="text-sm font-black px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 hover:text-blue-650 transition-colors {{ request()->routeIs('portal.checkout') ? 'bg-slate-50 text-blue-650' : '' }}">
-                            {{ $ne ? 'प्रतिक्रिया' : 'Feedback Page' }}
-                        </a>
-                        <a href="#contact" class="text-sm font-black px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 hover:text-blue-650 transition-colors">
-                            {{ $ne ? 'सम्पर्क' : 'Contact Us' }}
-                        </a>
+
                         
                         <div class="border-t border-slate-100 pt-2.5 sm:hidden">
                             <a href="{{ route('portal.select-service') }}" class="text-center px-4 py-2.5 rounded-full bg-blue-700 hover:bg-blue-800 text-white font-black text-xs transition-all shadow-sm block w-full">
