@@ -34,7 +34,7 @@
                             {{ $ne ? 'नागरिक पृष्ठपोषण डेस्क' : 'Citizen Feedback Desk' }}
                         </span>
                     </div>
-                    <h2 class="text-3xl text-bold text-slate-900">
+                    <h2 class="text-3xl font-bold text-slate-900">
                         {{ $ne ? 'सेवा प्रवाह मूल्याङ्कन फारम' : 'Service Delivery Assessment' }}
                     </h2>
                     <p class="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
