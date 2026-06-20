@@ -17,6 +17,7 @@
 @section('title', $ne ? 'नागरिक सारथी' : 'Nagarik Sarthi')
 
 @section('content')
+<link rel="icon" type="image/svg+xml" href="{{ asset('images/emblem.svg') }}">
 <div class="max-w-6xl mx-auto px-4 py-2 sm:py-4 selection:bg-blue-600 selection:text-white">
     
     <!-- Main Core Header Section -->

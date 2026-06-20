@@ -102,8 +102,8 @@
 
                         
                         <div class="border-t border-slate-100 pt-2.5 sm:hidden">
-                            <a href="{{ route('portal.select-service') }}" class="text-center px-4 py-2.5 rounded-full bg-blue-700 hover:bg-blue-800 text-white font-black text-xs transition-all shadow-sm block w-full">
-                                {{ $ne ? 'दर्ता गर्नुहोस्' : 'Register' }}
+                            <a href="{{ route('filament.admin.auth.login') }}" class="text-center px-4 py-2.5 rounded-full bg-blue-700 hover:bg-blue-800 text-white font-black text-xs transition-all shadow-sm block w-full">
+                                {{ $ne ? 'प्रवेश' : 'login' }}
                             </a>
                         </div>
                     </div>
