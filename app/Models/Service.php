@@ -12,7 +12,8 @@ class Service extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['department_id', 'name_en', 'name_np', 'is_active'];
+    // Added 'slug' to prevent mass-assignment errors during database seeding
+    protected $fillable = ['department_id', 'slug', 'name_en', 'name_np', 'is_active'];
 
     public function getNameAttribute(): string
     {
@@ -27,5 +28,14 @@ class Service extends Model
     public function steps(): HasMany
     {
         return $this->hasMany(ServiceStep::class)->orderBy('step_number', 'asc');
+    }
+
+    /**
+     * A service has many citizen visits.
+     * This fixes the Filament dashboard error!
+     */
+    public function visits(): HasMany
+    {
+        return $this->hasMany(Visit::class);
     }
 }
