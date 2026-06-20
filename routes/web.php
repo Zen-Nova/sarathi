@@ -34,6 +34,10 @@ Route::get('/select-service', function (Request $request) {
         'citizenship' => 'administration',
         'nid'         => 'national-id',
         'license'     => 'transport',
+
+        // New departments
+        'ird'         => 'inland-revenue-department',
+        'police'      => 'nepal-police',
     ];
 
     $department = null;
@@ -49,7 +53,7 @@ Route::get('/select-service', function (Request $request) {
         ->when($department, function ($query) use ($department) {
             $query->where('department_id', $department->id);
         })
-        ->with('steps')
+        ->with(['steps', 'requiredDocuments'])
         ->get();
 
     return view('citizen.select-service', compact('services', 'department'));
@@ -66,13 +70,18 @@ Route::post('/pick-service', function (Request $request) {
         'service_id' => ['required', 'exists:services,id'],
     ]);
 
-    $service = Service::with('department')->findOrFail($request->input('service_id'));
+    $service = Service::with(['department', 'steps', 'requiredDocuments'])
+        ->findOrFail($request->input('service_id'));
 
     $slugToChecklist = [
-        'passport-visa'  => 'passport',
-        'administration' => 'citizenship',
-        'national-id'    => 'nid',
-        'transport'      => 'license',
+        'passport-visa'             => 'passport',
+        'administration'            => 'citizenship',
+        'national-id'               => 'nid',
+        'transport'                 => 'license',
+
+        // New departments
+        'inland-revenue-department' => 'ird',
+        'nepal-police'              => 'police',
     ];
 
     $deptSlug = $service->department?->slug;
@@ -114,7 +123,8 @@ Route::get('/active-guide', function () {
         return redirect()->route('portal.select-service');
     }
 
-    $selectedService = Service::with('steps')->find($serviceId);
+    $selectedService = Service::with(['steps', 'requiredDocuments'])
+        ->find($serviceId);
 
     if (!$selectedService) {
         session()->forget([
@@ -144,18 +154,23 @@ Route::get('/document-checklist/{service}', function ($service) {
         'citizenship' => 'administration',
         'nid'         => 'national-id',
         'license'     => 'transport',
+
+        // New departments
+        'ird'         => 'inland-revenue-department',
+        'police'      => 'nepal-police',
     ];
 
     if (!array_key_exists($service, $serviceToDepartmentSlug)) {
         abort(404, 'Service checklist not found.');
     }
 
-    $department = Department::where('slug', $serviceToDepartmentSlug[$service])->firstOrFail();
+    $department = Department::where('slug', $serviceToDepartmentSlug[$service])
+        ->firstOrFail();
 
     $services = Service::query()
         ->where('department_id', $department->id)
         ->where('is_active', true)
-        ->with('steps')
+        ->with(['steps', 'requiredDocuments'])
         ->get();
 
     $selectedService = null;
@@ -164,7 +179,7 @@ Route::get('/document-checklist/{service}', function ($service) {
         $selectedService = Service::query()
             ->where('department_id', $department->id)
             ->where('is_active', true)
-            ->with('steps')
+            ->with(['steps', 'requiredDocuments'])
             ->find(session('service_id'));
     }
 
@@ -185,7 +200,7 @@ Route::get('/document-checklist/{service}', function ($service) {
 
 Route::get('/checkout', function () {
     $selectedService = session('service_id')
-        ? Service::find(session('service_id'))
+        ? Service::with(['steps', 'requiredDocuments'])->find(session('service_id'))
         : null;
 
     return view('citizen.checkout', [

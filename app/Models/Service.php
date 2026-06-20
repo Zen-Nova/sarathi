@@ -27,7 +27,12 @@ class Service extends Model
     public function getNameAttribute(): string
     {
         $locale = App::getLocale();
-        return $this->attributes["name_{$locale}"] ?? $this->attributes['name_en'] ?? '';
+
+        if ($locale === 'ne') {
+            return $this->attributes['name_np'] ?? $this->attributes['name_en'] ?? '';
+        }
+
+        return $this->attributes['name_en'] ?? '';
     }
 
     public function getNameNeAttribute()
@@ -53,6 +58,11 @@ class Service extends Model
     public function steps(): HasMany
     {
         return $this->hasMany(ServiceStep::class)->orderBy('step_number', 'asc');
+    }
+
+    public function requiredDocuments(): HasMany
+    {
+        return $this->hasMany(RequiredDocument::class)->orderBy('id', 'asc');
     }
 
     /**

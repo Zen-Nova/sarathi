@@ -15,6 +15,22 @@ class DepartmentSeeder extends Seeder
             ['en' => 'Passport & Visa', 'np' => 'राहदानी र भिसा'],
             ['en' => 'National ID', 'np' => 'राष्ट्रिय परिचयपत्र'],
             ['en' => 'Transport', 'np' => 'यातायात व्यवस्था'],
+            ['en' => 'Vehicle Registration', 'np' => 'सवारी दर्ता'],
+            ['en' => 'Driving License', 'np' => 'सवारी चालक अनुमतिपत्र'],
+            ['en' => 'Public Services', 'np' => 'सार्वजनिक सेवा'],
+            ['en' => 'Taxation', 'np' => 'कर विभाग'],
+            ['en' => 'Land Management', 'np' => 'भूमि व्यवस्था'],
+            ['en' => 'Health Services', 'np' => 'स्वास्थ्य सेवा'],
+            ['en' => 'Education', 'np' => 'शिक्षा विभाग'],
+            ['en' => 'Social Welfare', 'np' => 'सामाजिक कल्याण'],
+            ['en' => 'Employment', 'np' => 'रोजगार विभाग'],
+            ['en' => 'Legal Affairs', 'np' => 'कानूनी मामला'],
+            ['en' => 'Inland Revenue Department', 'np' => 'आन्तरिक राजस्व विभाग'],
+            ['en' => 'Customs', 'np' => 'भन्सार विभाग'],
+            ['en' => 'Foreign Affairs', 'np' => 'विदेश विभाग'],
+            ['en' => 'Nepal Police', 'np' => 'नेपाल प्रहरी'],
+            ['en' => 'Armed Police Force', 'np' => 'सशस्त्र प्रहरी बल'],
+            ['en' => 'Nepal Army', 'np' => 'नेपाल सेना'],
         ];
 
         foreach ($departments as $dept) {

@@ -14,6 +14,8 @@ class ServiceSeeder extends Seeder
         $admin = Department::where('slug', 'administration')->first();
         $nid = Department::where('slug', 'national-id')->first();
         $transport = Department::where('slug', 'transport')->first();
+        $police = Department::where('slug', 'nepal-police')->first();
+$ird = Department::where('slug', 'inland-revenue-department')->first();
 
         // 1. Passport Services
         if ($passport) {
@@ -107,6 +109,110 @@ class ServiceSeeder extends Seeder
                 ]
             );
         }
+
+// 5. Nepal Police Services
+if ($police) {
+    Service::updateOrCreate(
+        ['slug' => 'police-clearance-certificate'],
+        [
+            'department_id' => $police->id,
+            'name_en' => 'Police Clearance Certificate',
+            'name_np' => 'प्रहरी चारित्रिक प्रमाणपत्र',
+            'desc_en' => 'Guidance for applying police clearance certificate for visa, study, employment, migration or official use.',
+            'desc_ne' => 'भिसा, अध्ययन, रोजगारी, आप्रवासन वा आधिकारिक प्रयोजनका लागि प्रहरी चारित्रिक प्रमाणपत्र आवेदन प्रक्रिया।',
+            'est_en' => '20–40 mins',
+            'est_ne' => '२०–४० मिनेट',
+            'is_active' => true,
+        ]
+    );
+
+    Service::updateOrCreate(
+        ['slug' => 'lost-document-report'],
+        [
+            'department_id' => $police->id,
+            'name_en' => 'Lost Document Report',
+            'name_np' => 'हराएको कागजात प्रतिवेदन',
+            'desc_en' => 'Report lost citizenship, license, passport, academic certificate or other important documents.',
+            'desc_ne' => 'नागरिकता, लाइसेन्स, राहदानी, शैक्षिक प्रमाणपत्र वा अन्य महत्वपूर्ण कागजात हराएको प्रतिवेदन दर्ता गर्ने प्रक्रिया।',
+            'est_en' => '15–30 mins',
+            'est_ne' => '१५–३० मिनेट',
+            'is_active' => true,
+        ]
+    );
+
+    Service::updateOrCreate(
+        ['slug' => 'cyber-crime-complaint'],
+        [
+            'department_id' => $police->id,
+            'name_en' => 'Cyber Crime Complaint',
+            'name_np' => 'साइबर अपराध उजुरी',
+            'desc_en' => 'Complaint process for online fraud, hacked accounts, fake profiles, digital threats and cyber abuse.',
+            'desc_ne' => 'अनलाइन ठगी, ह्याक भएको खाता, नक्कली प्रोफाइल, डिजिटल धम्की तथा साइबर दुर्व्यवहार सम्बन्धी उजुरी प्रक्रिया।',
+            'est_en' => '30–60 mins',
+            'est_ne' => '३०–६० मिनेट',
+            'is_active' => true,
+        ]
+    );
+}
+
+// 6. Inland Revenue Department Services
+if ($ird) {
+    Service::updateOrCreate(
+        ['slug' => 'personal-pan-registration'],
+        [
+            'department_id' => $ird->id,
+            'name_en' => 'Personal PAN Registration',
+            'name_np' => 'व्यक्तिगत स्थायी लेखा नम्बर दर्ता',
+            'desc_en' => 'Registration process for individuals to obtain Permanent Account Number for salary, banking and tax purposes.',
+            'desc_ne' => 'तलब, बैंकिङ तथा कर प्रयोजनका लागि व्यक्तिले स्थायी लेखा नम्बर प्राप्त गर्ने प्रक्रिया।',
+            'est_en' => '20–40 mins',
+            'est_ne' => '२०–४० मिनेट',
+            'is_active' => true,
+        ]
+    );
+
+    Service::updateOrCreate(
+        ['slug' => 'business-pan-registration'],
+        [
+            'department_id' => $ird->id,
+            'name_en' => 'Business PAN Registration',
+            'name_np' => 'व्यवसायिक स्थायी लेखा नम्बर दर्ता',
+            'desc_en' => 'PAN registration process for firms, companies, shops, startups and business taxpayers.',
+            'desc_ne' => 'फर्म, कम्पनी, पसल, स्टार्टअप तथा व्यवसायिक करदाताका लागि PAN दर्ता प्रक्रिया।',
+            'est_en' => '30–60 mins',
+            'est_ne' => '३०–६० मिनेट',
+            'is_active' => true,
+        ]
+    );
+
+    Service::updateOrCreate(
+        ['slug' => 'vat-registration'],
+        [
+            'department_id' => $ird->id,
+            'name_en' => 'VAT Registration',
+            'name_np' => 'मूल्य अभिवृद्धि कर दर्ता',
+            'desc_en' => 'Registration or tax-type update process for businesses required to register under VAT.',
+            'desc_ne' => 'मूल्य अभिवृद्धि करमा दर्ता हुनुपर्ने व्यवसायका लागि VAT दर्ता वा कर प्रकार अद्यावधिक प्रक्रिया।',
+            'est_en' => '30–60 mins',
+            'est_ne' => '३०–६० मिनेट',
+            'is_active' => true,
+        ]
+    );
+
+    Service::updateOrCreate(
+        ['slug' => 'tax-clearance-certificate'],
+        [
+            'department_id' => $ird->id,
+            'name_en' => 'Tax Clearance Certificate',
+            'name_np' => 'कर चुक्ता प्रमाणपत्र',
+            'desc_en' => 'Process to obtain certificate showing that tax liabilities are cleared for the selected fiscal year.',
+            'desc_ne' => 'सम्बन्धित आर्थिक वर्षको कर दायित्व चुक्ता भएको प्रमाणपत्र प्राप्त गर्ने प्रक्रिया।',
+            'est_en' => '30–90 mins',
+            'est_ne' => '३०–९० मिनेट',
+            'is_active' => true,
+        ]
+    );
+}
 
         // 4. Transport / License Services
         if ($transport) {
