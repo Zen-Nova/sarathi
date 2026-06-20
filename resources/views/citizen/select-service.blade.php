@@ -22,7 +22,7 @@
                    {{ $ne ? 'राहदानी विभाग' : 'Department of Passports' }}
                 </div>
                 
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
                     {{ $ne ? 'आफ्नो अपेक्षित सेवा चयन गर्नुहोस्' : 'Select Your Requested Service' }}
                 </h1>
                 <p class="mt-2 text-xs sm:text-sm text-white/90 leading-relaxed font-medium">
