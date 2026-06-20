@@ -220,6 +220,32 @@ Route::post('/start-tracking', function (Request $request) {
     return redirect()->route('portal.active-guide');
 })->name('start-tracking');
 
+/*
+ * Step 1.5: User picks a service → store in session → redirect to document checklist
+ * This sits between select-service and document-checklist in the citizen flow.
+ */
+Route::post('/pick-service', function (Request $request) {
+    $request->validate(['service_id' => ['required', 'exists:services,id']]);
+
+    $service = \App\Models\Service::with('department')->findOrFail($request->input('service_id'));
+
+    // Map department slug to checklist key
+    $slugToChecklist = [
+        'passport-visa'  => 'passport',
+        'administration' => 'citizenship',
+        'national-id'    => 'nid',
+        'transport'      => 'license',
+    ];
+
+    $deptSlug = $service->department?->slug ?? '';
+    $checklistKey = $slugToChecklist[$deptSlug] ?? 'passport';
+
+    // Store chosen service in session so document-checklist can pass it to start-tracking
+    session(['service_id' => $service->id]);
+
+    return redirect()->route('portal.document-checklist', ['service' => $checklistKey]);
+})->name('portal.pick-service');
+
 Route::get('/active-guide', function () {
     $serviceId = session('service_id');
     if (!$serviceId) {
@@ -476,10 +502,19 @@ Route::get('/document-checklist/{service}', function ($service) {
         abort(404, 'Service checklist not found.');
     }
 
+    // Map checklist key back to department query param for back-navigation
+    $checklistToDept = [
+        'passport'    => 'passport',
+        'citizenship' => 'citizenship',
+        'nid'         => 'nid',
+        'license'     => 'license',
+    ];
+
     return view('citizen.document-checklist', [
-        'serviceKey' => $service,
-        'checklist' => $checklistData[$service],
-        'services' => \App\Models\Service::where('is_active', true)->get()
+        'serviceKey'     => $service,
+        'checklist'      => $checklistData[$service],
+        'departmentParam' => $checklistToDept[$service] ?? null,
+        'services'       => \App\Models\Service::where('is_active', true)->get()
     ]);
 })->name('portal.document-checklist');
 
