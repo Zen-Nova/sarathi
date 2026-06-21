@@ -125,12 +125,19 @@
 
         <footer id="contact" class="mt-auto bg-white border-t border-slate-100">
             <div class="max-w-6xl mx-auto pb-6 text-center">
-                <p class="text-[11px] font-black uppercase tracking-widest text-slate-400">{{ $nav['app'] }} · Digital Nepal Framework</p>
+                <p class="text-[11px] font-black uppercase tracking-widest text-slate-400">{{ $nav['app'] }} · Digital Nepal</p>
                 <p class="mt-1.5 text-[11px] text-slate-400">
                     <span class="mx-1 text-slate-300">·</span>
                     <span>Citizen Accountability &amp; Real-Time Redirection</span>
                 </p>
-                <p class="mt-1.5 text-[10px] text-slate-300 max-w-md mx-auto leading-relaxed">QR-based workflow tracking, service guidance &amp; citizen dashboards.</p>
+                <p class="mt-1.5 text-[10px] max-w-md mx-auto leading-relaxed text-black">
+    MADE BY
+    <a href="https://techzenova.com"
+       target="_blank"
+       class="font-semibold text-black  underline-offset-2 ">
+        ZENOVA
+    </a>
+</p>    
             </div>
         </footer>
     </div>
